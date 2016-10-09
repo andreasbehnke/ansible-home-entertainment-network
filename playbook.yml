@@ -1,6 +1,16 @@
 ---
   - hosts: dev
     remote_user: root
+    vars:
+      sshd_config: /storage/.cache/services/sshd.conf
+
     tasks:
-    - name: place my public ssh key
-      authorized_key: user="root" key="{{ lookup('file', './files/authorized_keys.myuser.pub') }}"
+
+    - name: Place my public ssh key
+      authorized_key: user=root key="{{ lookup('file', './files/authorized_keys.myuser.pub') }}"
+
+    - name: Change ownership of /storage
+      file: path=/storage owner=root group=root mode=0755
+
+    - name: Disable password login
+      lineinfile: dest={{ sshd_config }} regexp="SSHD_DISABLE_PW_AUTH" line="SSHD_DISABLE_PW_AUTH=\"true\""
