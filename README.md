@@ -4,3 +4,9 @@ The purpose of this repository is to provide an ansible playbook for managing mu
 
  * Use public/private key based SSH authentication and disable password authentication for root
  * ...
+
+# Usage
+
+ * setup the raspberry pi with LibreELEC
+ * create file files/authorized_keys.myuser.pub and add your public SSH key to this file
+ * when running playbook the first time, type "ansible-playbook playbook.yml --ask-pass"

@@ -1,0 +1,1 @@
+create new file authorized_keys.myuser.pub and add your public key before running playbook
