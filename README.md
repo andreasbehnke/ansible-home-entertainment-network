@@ -9,4 +9,4 @@ The purpose of this repository is to provide an ansible playbook for managing mu
 
  * setup the raspberry pi with LibreELEC
  * create file files/authorized_keys.myuser.pub and add your public SSH key to this file
- * when running playbook the first time, type "ansible-playbook playbook.yml --ask-pass"
+ * when running playbook the first time, type "ansible-playbook ssh-public-key.yml --ask-pass"
