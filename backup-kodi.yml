@@ -1,0 +1,12 @@
+---
+  - hosts: all
+    remote_user: root
+    vars:
+
+    tasks:
+       - name: make sure local backup folder is present
+         local_action: file state=directory path=./backup
+       - name: clean up last kodi backup
+         local_action: file state=absent path=./backup/.kodi
+       - name: backup kodi configuration
+         local_action: shell scp -r root@{{ inventory_hostname }}:/storage/.kodi ./backup
