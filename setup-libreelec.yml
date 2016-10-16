@@ -3,6 +3,8 @@
     remote_user: root
     vars:
       sshd_config: /storage/.cache/services/sshd.conf
+      connman_settings: /storage/.cache/connman/settings
+      network_wait: /storage/.cache/libreelec/network_wait
 
     tasks:
 
@@ -14,3 +16,12 @@
 
     - name: Disable password login
       lineinfile: dest={{ sshd_config }} regexp="SSHD_DISABLE_PW_AUTH" line="SSHD_DISABLE_PW_AUTH=\"true\""
+
+    - name: Set timeservers
+      lineinfile: dest={{ connman_settings }} regexp="Timeservers" line="Timeservers=0.europe.pool.ntp.org;1.europe.pool.ntp.org;2.europe.pool.ntp.org;3.europe.pool.ntp.org"
+
+    - name: ensure kodi waits for network
+      lineinfile: dest={{ network_wait }} create=yes regexp="WAIT_NETWORK=" line="WAIT_NETWORK=\"true\""
+
+    - name: timeout for waiting for network
+      lineinfile: dest={{ network_wait }} create=yes regexp="WAIT_NETWORK_TIME=" line="WAIT_NETWORK_TIME=\"10\""
