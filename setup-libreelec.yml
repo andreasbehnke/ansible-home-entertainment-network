@@ -8,20 +8,20 @@
 
     tasks:
 
+      # propagate public ssh keys
+
     - name: Place my public ssh key
       authorized_key: user=root key="{{ lookup('file', './files/authorized_keys.myuser.pub') }}"
-
     - name: Change ownership of /storage
       file: path=/storage owner=root group=root mode=0755
-
     - name: Disable password login
       lineinfile: dest={{ sshd_config }} regexp="SSHD_DISABLE_PW_AUTH" line="SSHD_DISABLE_PW_AUTH=\"true\""
 
+      # setup time server
+
     - name: Set timeservers
       lineinfile: dest={{ connman_settings }} regexp="Timeservers" line="Timeservers=0.europe.pool.ntp.org;1.europe.pool.ntp.org;2.europe.pool.ntp.org;3.europe.pool.ntp.org"
-
     - name: ensure kodi waits for network
       lineinfile: dest={{ network_wait }} create=yes regexp="WAIT_NETWORK=" line="WAIT_NETWORK=\"true\""
-
     - name: timeout for waiting for network
       lineinfile: dest={{ network_wait }} create=yes regexp="WAIT_NETWORK_TIME=" line="WAIT_NETWORK_TIME=\"10\""
