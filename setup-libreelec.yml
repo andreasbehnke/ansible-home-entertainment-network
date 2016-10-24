@@ -25,3 +25,5 @@
       lineinfile: dest={{ network_wait }} create=yes regexp="WAIT_NETWORK=" line="WAIT_NETWORK=\"true\""
     - name: timeout for waiting for network
       lineinfile: dest={{ network_wait }} create=yes regexp="WAIT_NETWORK_TIME=" line="WAIT_NETWORK_TIME=\"10\""
+
+      
