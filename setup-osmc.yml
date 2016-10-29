@@ -5,9 +5,12 @@
     vars:
 
       sshd_config: /etc/ssh/sshd_config
+      kodi_gui_settings: /home/osmc/.kodi/userdata/guisettings.xml
       system_user: osmc
 
     tasks:
+
+    # configure sshd
 
     - name: Place my public ssh key
       authorized_key: user="{{ system_user }}" key="{{ lookup('file', './files/authorized_keys.myuser.pub') }}"
@@ -15,7 +18,14 @@
       become: yes
       replace: dest={{ sshd_config }} regexp="#PasswordAuthentication yes" replace="PasswordAuthentication no"
       notify:
-        - restart sshd
+        - restart sshd<settinglevel>1</settinglevel>
+
+    # configure kodi
+
+    - name: switch gui to expert mode
+      replace: dest={{ kodi_gui_settings }} regexp="<settinglevel>1</settinglevel>" replace="<settinglevel>3</settinglevel>"
+    - name: use confluence skin
+      replace: dest={{ kodi_gui_settings }} regexp="<skin default="true">skin.osmc</skin>" replace="<skin>skin.confluence</skin>"
 
     handlers:
 
