@@ -6,7 +6,7 @@ The purpose of this repository is to provide an ansible playbook for managing mu
  * Setup correct timeservers
  * ...
 
-# Usage
+# Usage LibreELEC
 
  * setup the raspberry pi with LibreELEC
  * create file files/authorized_keys.myuser.pub and add your public SSH key to this file
