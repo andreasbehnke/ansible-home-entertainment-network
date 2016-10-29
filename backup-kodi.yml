@@ -1,8 +1,9 @@
 ---
   - hosts: all
-    remote_user: root
+    remote_user: osmc
     vars:
-      backup_folder: ../libreelec_backup
+      system_user: osmc
+      backup_folder: ../osmc_backup
 
     tasks:
        - name: test if backup_folder exists
@@ -14,7 +15,4 @@
          when: stat_backup_folder.stat.exists == False
 
        - name: backup kodi configuration
-         local_action: shell scp -r root@{{ inventory_hostname }}:/storage/.kodi {{ backup_folder }}/.kodi
-
-       - name: backup cache configuration
-         local_action: shell scp -r root@{{ inventory_hostname }}:/storage/.cache {{ backup_folder }}/.cache
+         local_action: shell scp -r {{ system_user }}@{{ inventory_hostname }}:.kodi {{ backup_folder }}/.kodi
