@@ -4,7 +4,12 @@ The purpose of this repository is to provide an ansible playbook for managing mu
 
  * Use public/private key based SSH authentication and disable password authentication for root
  * Setup correct timeservers
+ * Setup TV using vdr backend
  * ...
+
+# Precondition
+
+ * ansible-galaxy install cmprescott.xml
 
 # Usage LibreELEC
 

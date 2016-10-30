@@ -1,0 +1,12 @@
+<settings>
+    <setting id="autochannelgroups" value="false" />
+    <setting id="convertchar" value="true" />
+    <setting id="handlemessages" value="true" />
+    <setting id="host" value="192.168.0.100" />
+    <setting id="iconpath" value="" />
+    <setting id="port" value="34890" />
+    <setting id="priority" value="1" />
+    <setting id="timeout" value="3" />
+    <setting id="timeshift" value="1" />
+    <setting id="wol_mac" value="00:25:22:ef:79:dd" />
+</settings>
