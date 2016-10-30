@@ -37,8 +37,18 @@
       notify:
         - restart sshd
 
-    # configure kodi
+    # configure kodi - localization
 
+    - name: set country
+      xml: file={{ kodi_gui_settings }} xpath=/settings/locale/country value="Deutschland"
+    - name: set keyboardlayouts
+      xml: file={{ kodi_gui_settings }} xpath=/settings/locale/keyboardlayouts value="German QWERTZ"
+    - name: set language
+      xml: file={{ kodi_gui_settings }} xpath=/settings/locale/language value="resource.language.de_de"
+    - name: set timezone
+      xml: file={{ kodi_gui_settings }} xpath=/settings/locale/timezone value="Europe/Berlin"
+    - name: set timezonecountry
+      xml: file={{ kodi_gui_settings }} xpath=/settings/locale/timezonecountry value="Germany"
     - name: switch gui to expert mode
       xml: file={{ kodi_gui_settings }} xpath=/settings/general/settinglevel value=3
     - name: use confluence skin step 1
