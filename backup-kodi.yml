@@ -15,4 +15,10 @@
          when: stat_backup_folder.stat.exists == False
 
        - name: backup kodi configuration
-         local_action: shell scp -r {{ system_user }}@{{ inventory_hostname }}:.kodi {{ backup_folder }}/.kodi
+         local_action: shell scp -r {{ system_user }}@{{ inventory_hostname }}:.kodi {{ backup_folder }}
+
+       - name: backup addon database
+         shell: echo '.dump' | /usr/osmc/bin/sqlite3 /home/osmc/.kodi/userdata/Database/Addons20.db > Addons.db.sql
+
+       - name: fetch sql file
+         local_action: shell scp {{ system_user }}@{{ inventory_hostname }}:Addons.db.sql {{ backup_folder }}
