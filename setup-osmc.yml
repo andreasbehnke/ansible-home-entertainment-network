@@ -8,6 +8,11 @@
       kodi_gui_settings: /home/osmc/.kodi/userdata/guisettings.xml
       system_user: osmc
 
+    pre_tasks:
+    - name: stop kodi
+      become: yes
+      service: name=mediacenter state=stopped
+
     tasks:
 
     # configure sshd
@@ -18,17 +23,29 @@
       become: yes
       replace: dest={{ sshd_config }} regexp="#PasswordAuthentication yes" replace="PasswordAuthentication no"
       notify:
-        - restart sshd<settinglevel>1</settinglevel>
+        - restart sshd
 
     # configure kodi
 
     - name: switch gui to expert mode
       replace: dest={{ kodi_gui_settings }} regexp="<settinglevel>1</settinglevel>" replace="<settinglevel>3</settinglevel>"
+      #notify:
+      #  - restart kodi
     - name: use confluence skin
       replace: dest={{ kodi_gui_settings }} regexp="<skin default="true">skin.osmc</skin>" replace="<skin>skin.confluence</skin>"
+      #notify:
+      #  - restart kodi
 
     handlers:
 
     - name: restart sshd
       become: yes
       service: name=sshd state=restarted
+    - name: restart kodi
+      become: yes
+      service: name=mediacenter state=restarted
+
+    post_tasks:
+    - name: start kodi
+      become: yes
+      service: name=mediacenter state=started
