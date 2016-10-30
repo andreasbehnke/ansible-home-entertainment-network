@@ -19,9 +19,11 @@
     - name: stop kodi
       become: yes
       service: name=mediacenter state=stopped
-    - name: install dependencies
+    - name: install dependencies for role xml
       become: yes
-      apt: name=python-lxml state=latest
+      apt: name=python-lxml state=latest update_cache=yes
+      environment:
+        PATH: /bin:/sbin:/usr/bin:/usr/sbin
 
     tasks:
 
@@ -38,11 +40,13 @@
     # configure kodi
 
     - name: switch gui to expert mode
-      replace: dest={{ kodi_gui_settings }} regexp="<settinglevel>1</settinglevel>" replace="<settinglevel>3</settinglevel>"
-    - name: use confluence skin
-      replace: dest={{ kodi_gui_settings }} regexp="<skin default="true">skin.osmc</skin>" replace="<skin>skin.confluence</skin>"
+      xml: file={{ kodi_gui_settings }} xpath=/settings/general/settinglevel value=3
+    - name: use confluence skin step 1
+      xml: file={{ kodi_gui_settings }} xpath=/settings/lookandfeel/skin/@default ensure=absent
+    - name: use confluence skin step 2
+      xml: file={{ kodi_gui_settings }} xpath=/settings/lookandfeel/skin value=skin.confluence
 
-    # configure kodi - TV using vdr backend
+    # configure kodi - enable TV using vdr backend
 
     - name: make sure pvr.vdr.vnsi plugin directory exists
       file: path={{ kodi_addon_data }}/pvr.vdr.vnsi state=directory
