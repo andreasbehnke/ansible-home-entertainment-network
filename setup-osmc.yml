@@ -18,6 +18,7 @@
     - name: stop kodi
       become: yes
       service: name=mediacenter state=stopped
+      changed_when: False
     - name: install dependencies for role xml
       become: yes
       apt: name=python-lxml state=latest
@@ -50,9 +51,7 @@
       xml: file={{ kodi_gui_settings }} xpath=/settings/locale/timezonecountry value="Germany"
     - name: switch gui to expert mode
       xml: file={{ kodi_gui_settings }} xpath=/settings/general/settinglevel value=3
-    - name: use confluence skin step 1
-      xml: file={{ kodi_gui_settings }} xpath=/settings/lookandfeel/skin/@default ensure=absent
-    - name: use confluence skin step 2
+    - name: use confluence skin
       xml: file={{ kodi_gui_settings }} xpath=/settings/lookandfeel/skin value=skin.confluence
 
     # configure kodi - enable TV using vdr backend
@@ -64,12 +63,11 @@
     - name: test if plugin is installed
       shell: echo 'SELECT count(*) FROM disabled WHERE addonID="pvr.vdr.vnsi";' | {{ sqlite3 }} .kodi/userdata/Database/Addons20.db
       register: vnsi_installed
+      changed_when: vnsi_installed.stdout == '1'
     - name: activate plugin in addon database
       shell: echo 'DELETE FROM disabled WHERE addonID="pvr.vdr.vnsi";' | {{ sqlite3 }} {{ kodi_addon_database }}
       when: vnsi_installed.stdout == '1'
-    - name: enable kodi pvr module step 1
-      xml: file={{ kodi_gui_settings }} xpath=/settings/pvrmanager/enabled/@default ensure=absent
-    - name: enable kodi pvr module step 2
+    - name: enable kodi pvr module
       xml: file={{ kodi_gui_settings }} xpath=/settings/pvrmanager/enabled value=true
 
     handlers:
@@ -83,3 +81,4 @@
     - name: start kodi
       become: yes
       service: name=mediacenter state=started
+      changed_when: False
