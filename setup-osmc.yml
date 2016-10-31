@@ -11,7 +11,6 @@
       kodi_gui_settings: "{{ kodi_base }}/userdata/guisettings.xml"
       kodi_addon_data: "{{ kodi_base }}/userdata/addon_data"
       kodi_addon_database: "{{ kodi_base }}/userdata/Database/Addons20.db"
-      system_user: osmc
       sqlite3: /usr/osmc/bin/sqlite3
 
     pre_tasks:
@@ -30,7 +29,7 @@
     # configure sshd
 
     - name: Place my public ssh key
-      authorized_key: user="{{ system_user }}" key="{{ lookup('file', './files/authorized_keys.myuser.pub') }}"
+      authorized_key: user="{{ ansible_user }}" key="{{ lookup('file', './files/authorized_keys.myuser.pub') }}"
     - name: Disable password login
       become: yes
       replace: dest={{ sshd_config }} regexp="#PasswordAuthentication yes" replace="PasswordAuthentication no"
