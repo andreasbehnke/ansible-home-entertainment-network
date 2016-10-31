@@ -20,7 +20,7 @@
       service: name=mediacenter state=stopped
     - name: install dependencies for role xml
       become: yes
-      apt: name=python-lxml state=latest update_cache=yes
+      apt: name=python-lxml state=latest
       environment:
         PATH: /bin:/sbin:/usr/bin:/usr/sbin
 
