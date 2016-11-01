@@ -5,6 +5,13 @@
       system_user: osmc
       backup_folder: ../osmc_backup
 
+    pre_tasks:
+
+    - name: stop kodi
+      become: yes
+      service: name=mediacenter state=stopped
+      changed_when: False
+
     tasks:
        - name: test if backup_folder exists
          local_action: stat path={{ backup_folder }}
@@ -16,9 +23,18 @@
 
        - name: backup kodi configuration
          local_action: shell scp -r {{ system_user }}@{{ inventory_hostname }}:.kodi {{ backup_folder }}
+         changed_when: False
 
        - name: backup addon database
          shell: echo '.dump' | /usr/osmc/bin/sqlite3 /home/osmc/.kodi/userdata/Database/Addons20.db > Addons.db.sql
+         changed_when: False
 
        - name: fetch sql file
          local_action: shell scp {{ system_user }}@{{ inventory_hostname }}:Addons.db.sql {{ backup_folder }}
+
+    post_tasks:
+
+    - name: start kodi
+      become: yes
+      service: name=mediacenter state=started
+      changed_when: False
