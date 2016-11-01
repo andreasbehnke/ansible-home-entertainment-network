@@ -38,7 +38,7 @@
       notify:
         - restart sshd
 
-    # configure kodi - localization
+    # configure kodi - general settings and localization
 
     - name: set country
       xml: file={{ kodi_gui_settings }} xpath=/settings/locale/country value="Deutschland"
@@ -54,8 +54,16 @@
       xml: file={{ kodi_gui_settings }} xpath=/settings/general/settinglevel value=3
     - name: use confluence skin
       xml: file={{ kodi_gui_settings }} xpath=/settings/lookandfeel/skin value=skin.confluence
-    - name: remove default attribute
+    - name: disable GUI sounds
+      xml: file={{ kodi_gui_settings }} xpath=/settings/lookandfeel/soundskin value=""
+    - name: remove default attribute from locale settings
       xml: file={{ kodi_gui_settings }} xpath=/settings/locale/*/@default ensure=absent
+      changed_when: False
+    - name: remove default attribute from general settigs
+      xml: file={{ kodi_gui_settings }} xpath=/settings/general/*/@default ensure=absent
+      changed_when: False
+    - name: remove default attribute from lookandfeel settigs
+      xml: file={{ kodi_gui_settings }} xpath=/settings/lookandfeel/*/@default ensure=absent
       changed_when: False
 
     # configure kodi - enable TV using vdr backend
@@ -73,7 +81,7 @@
       when: vnsi_installed.stdout == '1'
     - name: enable kodi pvr module
       xml: file={{ kodi_gui_settings }} xpath=/settings/pvrmanager/enabled value=true
-    - name: remove default attribute
+    - name: remove default attribute from pvrmanager settings
       xml: file={{ kodi_gui_settings }} xpath=/settings/pvrmanager/*/@default ensure=absent
       changed_when: False
 
