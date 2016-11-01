@@ -10,6 +10,7 @@
       kodi_base: /home/osmc/.kodi
       kodi_gui_settings: "{{ kodi_base }}/userdata/guisettings.xml"
       kodi_sources: "{{ kodi_base }}/userdata/sources.xml"
+      kodi_wakeonlan: "{{ kodi_base }}/userdata/wakeonlan.xml"
       kodi_addon_data: "{{ kodi_base }}/userdata/addon_data"
       kodi_addon_database: "{{ kodi_base }}/userdata/Database/Addons20.db"
       sqlite3: /usr/osmc/bin/sqlite3
@@ -65,6 +66,18 @@
     - name: remove default attribute from lookandfeel settigs
       xml: file={{ kodi_gui_settings }} xpath=/settings/lookandfeel/*/@default ensure=absent
       changed_when: False
+
+    # configure kodi - powermanagement
+
+    - name: shutdown after 30 minutes
+      xml: file={{ kodi_gui_settings }} xpath=/settings/powermanagement/shutdowntime value=30
+    - name: activate wake on lan
+      xml: file={{ kodi_gui_settings }} xpath=/settings/powermanagement/wakeonaccess value="true"
+    - name: remove default attribute from powermanagement settigs
+      xml: file={{ kodi_gui_settings }} xpath=/settings/powermanagement/*/@default ensure=absent
+      changed_when: False
+    - name: write wol configuration
+      copy: src=./files/wakeonlan.xml dest={{ kodi_wakeonlan }}
 
     # configure kodi - enable TV using vdr backend
 
