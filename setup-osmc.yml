@@ -22,7 +22,7 @@
       changed_when: False
     - name: install dependencies for role xml
       become: yes
-      apt: name=python-lxml state=latest
+      apt: name=python-lxml state=latest update_cache=yes
       environment:
         PATH: /bin:/sbin:/usr/bin:/usr/sbin
 
@@ -89,6 +89,15 @@
 
     - name: copy sources.xml
       copy: src=./files/sources.xml dest={{ kodi_sources }}
+    - name: set view mode for pictures
+      xml:
+        file: "{{ kodi_gui_settings }}"
+        xpath: /settings/pictures
+        add_children:
+          - viewmode: "66036"
+    - name: remove default attribute from pictures settings
+      xml: file={{ kodi_gui_settings }} xpath=/settings/pictures/*/@default ensure=absent
+      changed_when: False
 
     handlers:
 
