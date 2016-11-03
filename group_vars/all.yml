@@ -1,0 +1,3 @@
+---
+homeserver_host: "{{ hostvars['homeserver']['ansible_host'] }}"
+homeserver_mac: "{{ hostvars['homeserver']['mac-addr'] }}"
