@@ -78,7 +78,7 @@
       xml: file={{ kodi_gui_settings }} xpath=/settings/powermanagement/*/@default ensure=absent
       changed_when: False
     - name: write wol configuration
-      copy: src=./files/wakeonlan.xml dest={{ kodi_wakeonlan }}
+      template: src=./files/wakeonlan.xml.j2 dest={{ kodi_wakeonlan }}
 
     # configure kodi - enable TV using vdr backend
 
@@ -102,7 +102,7 @@
     # configure kodi - enable music, video and picture source
 
     - name: copy sources.xml
-      copy: src=./files/sources.xml dest={{ kodi_sources }}
+      template: src=./files/sources.xml.j2 dest={{ kodi_sources }}
     - name: test if view mode for pictures is set
       shell: echo 'SELECT count(*) FROM view WHERE window=10002;' | {{ sqlite3 }} {{ kodi_viewmodes_database }}
       register: pictures_viewmode
