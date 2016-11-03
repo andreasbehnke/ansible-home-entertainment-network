@@ -13,6 +13,7 @@
       kodi_wakeonlan: "{{ kodi_base }}/userdata/wakeonlan.xml"
       kodi_addon_data: "{{ kodi_base }}/userdata/addon_data"
       kodi_addon_database: "{{ kodi_base }}/userdata/Database/Addons20.db"
+      kodi_viewmodes_database: "{{ kodi_base }}/userdata/Database/ViewModes6.db"
       sqlite3: /usr/osmc/bin/sqlite3
 
     pre_tasks:
@@ -102,15 +103,16 @@
 
     - name: copy sources.xml
       copy: src=./files/sources.xml dest={{ kodi_sources }}
-    - name: set view mode for pictures
-      xml:
-        file: "{{ kodi_gui_settings }}"
-        xpath: /settings/pictures
-        add_children:
-          - viewmode: "66036"
-    - name: remove default attribute from pictures settings
-      xml: file={{ kodi_gui_settings }} xpath=/settings/pictures/*/@default ensure=absent
-      changed_when: False
+    - name: test if view mode for pictures is set
+      shell: echo 'SELECT count(*) FROM view WHERE window=10002;' | {{ sqlite3 }} {{ kodi_viewmodes_database }}
+      register: pictures_viewmode
+      changed_when: pictures_viewmode.stdout == '0'
+    - name: set view mode for pictures to thumbnail
+      shell: echo 'INSERT INTO view (window, path, viewMode, sortMethod, sortOrder, sortAttributes, skin) VALUES (10002,"/",66036,1,1,0,"skin.confluence");' | {{ sqlite3 }} {{ kodi_viewmodes_database }}
+      when: pictures_viewmode.stdout == '0'
+    - name: set view mode for remote pictures to thumbnail
+      shell: echo 'INSERT INTO view (window, path, viewMode, sortMethod, sortOrder, sortAttributes, skin) VALUES (10002,"nfs://192.168.0.100/srv/picture/",66036,1,1,0,"skin.confluence");' | {{ sqlite3 }} {{ kodi_viewmodes_database }}
+      when: pictures_viewmode.stdout == '0'
 
     handlers:
 
