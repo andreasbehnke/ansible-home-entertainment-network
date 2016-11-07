@@ -33,11 +33,16 @@
 
     # configure sshd
 
+    - name: test if service sshd exists
+      stat: path=/etc/init.d/ssh
+      register: ssh_installed
     - name: Place my public ssh key
       authorized_key: user="{{ ansible_user }}" key="{{ lookup('file', './files/authorized_keys.myuser.pub') }}"
+      when: ssh_installed.stat.exists
     - name: Disable password login
       become: yes
       replace: dest={{ sshd_config }} regexp="#PasswordAuthentication yes" replace="PasswordAuthentication no"
+      when: ssh_installed.stat.exists
       notify:
         - restart sshd
 
