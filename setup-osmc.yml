@@ -11,8 +11,8 @@
       kodi_sources: "{{ kodi_base }}/userdata/sources.xml"
       kodi_wakeonlan: "{{ kodi_base }}/userdata/wakeonlan.xml"
       kodi_addon_data: "{{ kodi_base }}/userdata/addon_data"
-      kodi_addon_database: "{{ kodi_base }}/userdata/Database/Addons20.db"
-      kodi_viewmodes_database: "{{ kodi_base }}/userdata/Database/ViewModes6.db"
+      kodi_addon_database: "{{ kodi_base }}/userdata/Database/Addons{{ kodi_addon_database_version }}.db"
+      kodi_viewmodes_database: "{{ kodi_base }}/userdata/Database/ViewModes{{ kodi_viewmodes_database_version }}.db"
 
     environment:
 
