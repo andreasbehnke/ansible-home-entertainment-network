@@ -93,7 +93,7 @@
     - name: configure pvr.vdr.vnsi plugin
       template: src=./files/pvr.vdr.vnsi.settings.xml.j2 dest={{ kodi_addon_data }}/pvr.vdr.vnsi/settings.xml
     - name: test if plugin is installed
-      shell: echo 'SELECT count(*) FROM disabled WHERE addonID="pvr.vdr.vnsi";' | sqlite3 .kodi/userdata/Database/Addons20.db
+      shell: echo 'SELECT count(*) FROM disabled WHERE addonID="pvr.vdr.vnsi";' | sqlite3 {{ kodi_addon_database }}
       register: vnsi_installed
       changed_when: vnsi_installed.stdout == '1'
     - name: activate plugin in addon database
