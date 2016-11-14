@@ -1,8 +1,6 @@
 ---
 homeserver_host: "{{ hostvars['homeserver']['ansible_host'] }}"
 homeserver_mac: "{{ hostvars['homeserver']['mac_addr'] }}"
-kodi_addon_database_version: 20
-kodi_viewmodes_database_version: 6
 
 kodi_gui_settings_values:
   - { xpath: "/settings/locale/country", value: "Deutschland" }
