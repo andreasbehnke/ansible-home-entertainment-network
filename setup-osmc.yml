@@ -46,6 +46,7 @@
         - restart sshd
 
     # install kodi and plugins
+
     - name: install kodi
       become: yes
       apt: name={{ item }} state=latest
@@ -58,8 +59,9 @@
       async: 1
       poll: 0
       when: kodi_installation.changed
-      
+
     # configure kodi - guisettings.xml
+
     - name: apply all gui settings
       xml: file={{ kodi_gui_settings }} xpath={{ item.xpath }} value={{ item.value }}
       with_items: "{{ kodi_gui_settings_values }}"
