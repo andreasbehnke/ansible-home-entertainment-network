@@ -53,15 +53,20 @@
       with_items:
         - kodi
         - kodi-pvr-vdr-vnsi
-      register: kodi_installation
+    - name: test if kodi base dir exists
+      stat: path={{ kodi_base }}
+      register: kodi_base_dir
     - name: start kodi for the first time to create configuration folder
       shell: kodi
       async: 1
       poll: 0
-      when: kodi_installation.changed
+      when: kodi_base_dir.stat.exists == False
 
     # configure kodi - guisettings.xml
 
+    - name: wait for file being created
+      wait_for: path={{ kodi_gui_settings }}
+      changed_when: False
     - name: apply all gui settings
       xml: file={{ kodi_gui_settings }} xpath={{ item.xpath }} value={{ item.value }}
       with_items: "{{ kodi_gui_settings_values }}"
