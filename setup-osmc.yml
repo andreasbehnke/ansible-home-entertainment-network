@@ -52,9 +52,14 @@
       with_items:
         - kodi
         - kodi-pvr-vdr-vnsi
-
+      register: kodi_installation
+    - name: start kodi for the first time to create configuration folder
+      shell: kodi
+      async: 1
+      poll: 0
+      when: kodi_installation.changed
+      
     # configure kodi - guisettings.xml
-
     - name: apply all gui settings
       xml: file={{ kodi_gui_settings }} xpath={{ item.xpath }} value={{ item.value }}
       with_items: "{{ kodi_gui_settings_values }}"
