@@ -45,7 +45,7 @@
       notify:
         - restart sshd
 
-    # install kodi and plugins
+    # install kodi and plugins (for ubuntu only)
 
     - name: install kodi
       become: yes
