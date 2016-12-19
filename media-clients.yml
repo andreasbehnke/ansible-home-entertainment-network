@@ -20,6 +20,7 @@
       apt: name=sqlite3 state=latest
 
   roles:
+    - sshd
     - cmprescott.xml
     - kodi-media-client
 
