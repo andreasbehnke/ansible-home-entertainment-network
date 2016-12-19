@@ -1,0 +1,32 @@
+---
+
+- hosts: media-clients
+
+  environment:
+
+    PATH: '/bin:/sbin:/usr/bin:/usr/sbin:/usr/osmc/bin/'
+
+  pre_tasks:
+    - name: stop kodi
+      become: yes
+      service: name={{ kodi_service }} state=stopped
+      changed_when: False
+      when: kodi_service is defined
+    - name: install dependencies for role xml
+      become: yes
+      apt: name=python-lxml state=latest
+    - name: install dependencies for modifying sqlite3 files
+      become: yes
+      apt: name=sqlite3 state=latest
+
+  roles:
+    - cmprescott.xml
+    - kodi-media-client
+
+  post_tasks:
+
+    - name: start kodi
+      become: yes
+      service: name={{ kodi_service }} state=started
+      changed_when: False
+      when: kodi_service is defined
