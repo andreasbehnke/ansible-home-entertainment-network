@@ -1,0 +1,6 @@
+---
+
+- hosts: media-server
+
+  roles:
+    - sshd
