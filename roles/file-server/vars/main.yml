@@ -2,7 +2,8 @@
 
   samba_workgroup: "My Sweet Home"
   samba_force_user: "{{ ansible_user }}"
-  samba_write_list: "@sambashare"
+  samba_force_group: "sambashare"
+  samba_write_list: "@{{ samba_force_group }}"
   file_shares:
     - { name: "picture", path: "/srv/picture" }
     - { name: "music", path: "/srv/music" }

@@ -266,7 +266,9 @@ browsable = yes
 guest ok = yes
 read only = yes
 write list = {{ samba_write_list }}
-create mask = 0755
+create mask = 0775
 force user = {{ samba_force_user }}
-
+force group = {{ samba_force_group }}
+force directory mode = 0775
+force create mode = 0764
 {% endfor %}
