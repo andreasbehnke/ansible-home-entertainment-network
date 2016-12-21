@@ -26,7 +26,7 @@
 ## Browsing/Identification ###
 
 # Change this to the workgroup/NT-domain name your Samba server will part of
-   workgroup = WORKGROUP
+   workgroup = {{ samba_workgroup }}
 
 # server string is the equivalent of the NT Description field
 	server string = %h server (Samba, Ubuntu)
@@ -257,3 +257,12 @@
 # Please note that you also need to set appropriate Unix permissions
 # to the drivers directory for these users to have write rights in it
 ;   write list = root, @lpadmin
+
+[picture]
+path = {{ picture_share_path }}
+browsable = yes
+guest ok = yes
+read only = yes
+write list = {{ samba_write_list }}
+create mask = 0755
+force user = {{ samba_force_user }}
