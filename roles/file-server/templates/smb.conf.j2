@@ -258,11 +258,15 @@
 # to the drivers directory for these users to have write rights in it
 ;   write list = root, @lpadmin
 
-[picture]
-path = {{ picture_share_path }}
+{% for share in file_shares %}
+
+[{{ share.name }}]
+path = {{ share.path }}
 browsable = yes
 guest ok = yes
 read only = yes
 write list = {{ samba_write_list }}
 create mask = 0755
 force user = {{ samba_force_user }}
+
+{% endfor %}

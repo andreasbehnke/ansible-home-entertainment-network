@@ -1,9 +1,9 @@
 ---
 
-  picture_share_path: "/srv/picture"
-  video_share_path: "/srv/video"
-  music_share_path: "/srv/music"
-
   samba_workgroup: "My Sweet Home"
   samba_force_user: "{{ ansible_user }}"
   samba_write_list: "@sambashare"
+  file_shares:
+    - { name: "picture", path: "/srv/picture" }
+    - { name: "music", path: "/srv/music" }
+    - { name: "video", path: "/srv/video" }
