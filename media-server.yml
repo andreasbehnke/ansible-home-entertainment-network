@@ -5,3 +5,4 @@
   roles:
     - sshd
     - file-server
+    - video-disk-recorder

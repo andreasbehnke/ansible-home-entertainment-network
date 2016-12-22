@@ -1,0 +1,8 @@
+---
+
+  - name: add yavdr repositories
+    become: yes
+    apt_repository: repo="{{ item }}"
+    with_items:
+      - "ppa:yavdr/main"
+      - "ppa:yavdr/stable-vdr"
