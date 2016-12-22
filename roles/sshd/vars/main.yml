@@ -1,4 +1,4 @@
 ---
 
   sshd_config: /etc/ssh/sshd_config
-  sshd_name: sshd
+  sshd_name: ssh
