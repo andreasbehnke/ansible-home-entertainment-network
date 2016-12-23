@@ -2,6 +2,15 @@
 
 - hosts: media-server
 
+  pre_tasks:
+   - name: prefere ipv4 over ipv6 to fix DNS problem with secure.ubuntu
+     become: yes
+     lineinfile: dest="/etc/gai.conf" regexp="#precedence ::ffff:0:0/96  100" line="precedence ::ffff:0:0/96  100"
+
+   - name: update apt cache
+     become: yes
+     apt: update_cache=yes
+
   roles:
     - sshd
     - file-server
