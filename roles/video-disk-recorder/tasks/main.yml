@@ -1,8 +1,25 @@
 ---
 
-  - name: add yavdr repositories
-    become: yes
-    apt_repository: repo="{{ item }}"
-    with_items:
-      - "ppa:yavdr/main"
-      - "ppa:yavdr/stable-vdr"
+ - name: add yavdr repositories
+   become: yes
+   apt_repository: repo="{{ item }}"
+   with_items:
+    - "ppa:yavdr/main"
+    - "ppa:yavdr/stable-vdr"
+
+ - name: install vdr
+   become: yes
+   apt: name="{{ item }}" state=latest
+   with_items:
+    - vdr
+    - vdr-plugin-epgsearch
+    - vdr-plugin-vnsiserver
+    - vdr-plugin-live
+   notify:
+     - restart vdr
+
+ - name: enable vdr service
+   become: yes
+   lineinfile: dest="/etc/default/vdr" regexp="ENABLED=0" line="ENABLED=1"
+   notify:
+     - restart vdr

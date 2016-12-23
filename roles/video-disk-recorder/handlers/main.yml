@@ -1,0 +1,5 @@
+---
+
+  - name: restart vdr
+    become: yes
+    service: name=vdr state=restarted
