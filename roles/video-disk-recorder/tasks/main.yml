@@ -12,6 +12,7 @@
    apt: name="{{ item }}" state=latest
    with_items:
     - vdr
+    - vdr-plugin-dummydevice
     - vdr-plugin-epgsearch
     - vdr-plugin-vnsiserver
     - vdr-plugin-live
