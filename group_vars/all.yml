@@ -1,23 +1,4 @@
 ---
 homeserver_host: "{{ hostvars['homeserver']['ansible_host'] }}"
 homeserver_mac: "{{ hostvars['homeserver']['mac_addr'] }}"
-
-kodi_gui_settings_values:
-  - { xpath: "/settings/locale/country", value: "Deutschland" }
-  - { xpath: "/settings/locale/keyboardlayouts", value: "German QWERTZ" }
-  - { xpath: "/settings/locale/language", value: "resource.language.de_de" }
-  - { xpath: "/settings/locale/timezone", value: "Europe/Berlin" }
-  - { xpath: "/settings/locale/timezonecountry", value: "Germany" }
-  - { xpath: "/settings/general/settinglevel", value: 3 }
-  - { xpath: "/settings/lookandfeel/skin", value: "skin.confluence" }
-  - { xpath: "/settings/lookandfeel/soundskin", value: "OFF" }
-  - { xpath: "/settings/powermanagement/shutdowntime", value: 30 }
-  - { xpath: "/settings/powermanagement/wakeonaccess", value: "true" }
-  - { xpath: "/settings/pvrmanager/enabled", value: "true" }
-
-kodi_gui_settings_remove_default:
-  - "/settings/locale/*/@default"
-  - "/settings/general/*/@default"
-  - "/settings/lookandfeel/*/@default"
-  - "/settings/powermanagement/*/@default"
-  - "/settings/pvrmanager/*/@default"
+user_home: "/home/{{ ansible_user_id }}"

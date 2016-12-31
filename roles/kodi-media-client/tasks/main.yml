@@ -54,6 +54,8 @@
   - name: activate plugin in addon database
     shell: echo 'DELETE FROM disabled WHERE addonID="pvr.vdr.vnsi";' | sqlite3 {{ kodi_addon_database.files[0].path }}
     when: vnsi_installed.stdout == '1'
+  - name: copy channel logos
+    unarchive: src=channel_logos.tar.gz dest={{ user_home }}
 
   # configure kodi - enable music, video and picture source
 

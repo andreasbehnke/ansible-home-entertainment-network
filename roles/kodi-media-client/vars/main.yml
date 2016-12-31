@@ -1,8 +1,32 @@
 ---
 
-  kodi_base: /home/{{ ansible_user }}/.kodi
+  kodi_base: "{{ user_home }}/.kodi"
   kodi_gui_settings: "{{ kodi_base }}/userdata/guisettings.xml"
   kodi_sources: "{{ kodi_base }}/userdata/sources.xml"
   kodi_wakeonlan: "{{ kodi_base }}/userdata/wakeonlan.xml"
   kodi_database: "{{ kodi_base }}/userdata/Database"
   kodi_addon_data: "{{ kodi_base }}/userdata/addon_data"
+
+  kodi_channel_logos: "{{ user_home }}/channel_logos/"
+
+  kodi_gui_settings_values:
+    - { xpath: "/settings/locale/country", value: "Deutschland" }
+    - { xpath: "/settings/locale/keyboardlayouts", value: "German QWERTZ" }
+    - { xpath: "/settings/locale/language", value: "resource.language.de_de" }
+    - { xpath: "/settings/locale/timezone", value: "Europe/Berlin" }
+    - { xpath: "/settings/locale/timezonecountry", value: "Germany" }
+    - { xpath: "/settings/general/settinglevel", value: 3 }
+    - { xpath: "/settings/lookandfeel/skin", value: "skin.confluence" }
+    - { xpath: "/settings/lookandfeel/soundskin", value: "OFF" }
+    - { xpath: "/settings/powermanagement/shutdowntime", value: 30 }
+    - { xpath: "/settings/powermanagement/wakeonaccess", value: "true" }
+    - { xpath: "/settings/pvrmanager/enabled", value: "true" }
+    - { xpath: "/settings/pvrmenu/iconpath", value: "{{ kodi_channel_logos }}" }
+
+  kodi_gui_settings_remove_default:
+    - "/settings/locale/*/@default"
+    - "/settings/general/*/@default"
+    - "/settings/lookandfeel/*/@default"
+    - "/settings/powermanagement/*/@default"
+    - "/settings/pvrmanager/*/@default"
+    - "/settings/pvrmenu/*/@default"
