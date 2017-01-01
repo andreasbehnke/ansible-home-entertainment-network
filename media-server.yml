@@ -5,7 +5,7 @@
   pre_tasks:
    - name: prefere ipv4 over ipv6 to fix DNS problem with secure.ubuntu
      become: yes
-     lineinfile: dest="/etc/gai.conf" regexp="#precedence ::ffff:0:0/96  100" line="precedence ::ffff:0:0/96  100"
+     lineinfile: dest="/etc/gai.conf" line="precedence ::ffff:0:0/96  100" state="present"
 
    - name: update apt cache
      become: yes
