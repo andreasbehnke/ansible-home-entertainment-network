@@ -4,7 +4,7 @@
     stat: path=/etc/init.d/ssh
     register: ssh_installed
   - name: Place my public ssh key
-    authorized_key: user="{{ ansible_user }}" key="{{ lookup('file', 'authorized_keys.myuser.pub') }}"
+    authorized_key: user="{{ ansible_user_id }}" key="{{ lookup('file', 'authorized_keys.myuser.pub') }}"
     when: ssh_installed.stat.exists
   - name: Disable password login
     become: yes
