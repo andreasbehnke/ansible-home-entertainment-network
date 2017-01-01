@@ -12,15 +12,23 @@
    apt: name="{{ item }}" state=latest
    with_items:
     - vdr
+    - vdr-addon-acpiwakeup
     - vdr-plugin-dummydevice
     - vdr-plugin-epgsearch
-    - vdr-plugin-vnsiserver
     - vdr-plugin-live
+    - vdr-plugin-vnsiserver
+
    notify:
      - restart vdr
 
  - name: enable vdr service
    become: yes
-   lineinfile: dest="/etc/default/vdr" regexp="ENABLED=0" line="ENABLED=1"
+   lineinfile: dest="/etc/default/vdr" regexp="ENABLED" line="ENABLED=1"
+   notify:
+     - restart vdr
+
+ - name: enable ACPI wakeup
+   become: yes
+   lineinfile: dest="/etc/vdr/vdr-addon-acpiwakeup.conf" regexp="ACPI_ENABLED" line="ACPI_ENABLED=yes"
    notify:
      - restart vdr
