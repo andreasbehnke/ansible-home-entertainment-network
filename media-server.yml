@@ -12,7 +12,18 @@
      apt: update_cache=yes
      changed_when: False
 
+   - name: stop vdr
+     become: yes
+     service: name=vdr state=stopped
+     changed_when: False
+
   roles:
     - sshd
     - file-server
     - video-disk-recorder
+
+  post_tasks:
+    - name: start vdr
+      become: yes
+      service: name=vdr state=started
+      changed_when: False

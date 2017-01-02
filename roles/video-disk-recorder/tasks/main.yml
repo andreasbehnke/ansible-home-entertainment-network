@@ -19,32 +19,21 @@
     - vdr-plugin-live
     - vdr-plugin-vnsiserver
 
-   notify:
-     - restart vdr
-
  - name: enable vdr service
    become: yes
    lineinfile: dest="/etc/default/vdr" regexp="ENABLED" line="ENABLED=1"
-   notify:
-     - restart vdr
 
  - name: enable ACPI wakeup
    become: yes
    lineinfile: dest="/etc/vdr/vdr-addon-acpiwakeup.conf" regexp="ACPI_ENABLED" line="ACPI_ENABLED=yes"
-   notify:
-     - restart vdr
 
  - name: enable lifeguard for open samba file shares
    become: yes
    lineinfile: dest="/etc/vdr/lifeguard.conf" line="smb locks"
-   notify:
-     - restart vdr
 
  - name: copy channel list
    become: yes
    copy: src="channels.conf" dest="/var/lib/vdr/channels.conf" owner="vdr" group="vdr" mode=0644
-   notify:
-     - restart vdr
 
  - name: install german language support
    become: yes
@@ -58,5 +47,3 @@
  - name: make german default language
    become: yes
    copy: src="locale" dest="/etc/default/locale"
-   notify:
-    - restart vdr
