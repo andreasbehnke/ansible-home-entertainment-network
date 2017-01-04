@@ -12,9 +12,14 @@
      apt: update_cache=yes
      changed_when: False
 
+   - name: test if vdr is installed
+     stat: path=/etc/init.d/vdr
+     register: vdr_service
+
    - name: stop vdr
      become: yes
      service: name=vdr state=stopped
+     when: vdr_service.stat.exists
      changed_when: False
 
   roles:
