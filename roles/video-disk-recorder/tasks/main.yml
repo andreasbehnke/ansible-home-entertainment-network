@@ -50,7 +50,7 @@
 
  - name: configure live plugin
    become: yes
-   lineinfile: dest="/etc/vdr/setup.conf" regexp="{{ item.key }}" line="{{ item.key }} = {{ item.value }}"
+   lineinfile: dest="/etc/vdr/setup.conf" regexp="{{ item.key }}" line="{{ item.key }} = {{ item.value }}" create=yes
    with_items:
     - { key: "live.UserdefTimes", value: "20:15" }
     - { key: "live.UseStreamdev", value: "0"}
