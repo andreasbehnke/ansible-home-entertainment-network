@@ -1,9 +1,9 @@
 ---
 
-  - name: create local file structure for shared files
+  - name: create local file structure for public shared files
     become: yes
     file: path={{ item.path }} owner={{ samba_force_user }} group={{ samba_force_group }} mode="0775" state=directory
-    with_items: "{{ file_shares }}"
+    with_items: "{{ public_file_shares }}"
   - name: install samba service
     become: yes
     apt: name=samba state=latest

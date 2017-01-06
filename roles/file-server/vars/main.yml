@@ -4,7 +4,7 @@
   samba_force_user: "{{ ansible_user_id }}"
   samba_force_group: "sambashare"
   samba_write_list: "@{{ samba_force_group }}"
-  file_shares:
+  public_file_shares:
     - { name: "picture", path: "/srv/picture" }
     - { name: "music", path: "/srv/music" }
     - { name: "video", path: "/srv/video" }

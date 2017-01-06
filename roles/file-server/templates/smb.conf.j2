@@ -258,7 +258,7 @@
 # to the drivers directory for these users to have write rights in it
 ;   write list = root, @lpadmin
 
-{% for share in file_shares %}
+{% for share in public_file_shares %}
 
 [{{ share.name }}]
 path = {{ share.path }}
