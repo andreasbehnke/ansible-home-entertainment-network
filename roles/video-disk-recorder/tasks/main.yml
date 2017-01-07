@@ -5,7 +5,14 @@
    apt_repository: repo="{{ item }}"
    with_items:
     - "ppa:yavdr/main"
+    - "ppa:yavdr/unstable-main"
     - "ppa:yavdr/stable-vdr"
+
+ - name: install dvb card driver
+   become: yes
+   apt: name="dddvb-dkms" state=latest
+   notify:
+     - reboot
 
  - name: install vdr
    become: yes
