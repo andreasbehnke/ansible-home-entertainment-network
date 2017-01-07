@@ -55,4 +55,9 @@
     - { key: "live.UserdefTimes", value: "20:15" }
     - { key: "live.UseStreamdev", value: "0"}
     - { key: "live.AdminPasswordMD5", value: "4:{{ homeserver_vdr_live_password_hash }}" }
+    - { key: "vnsiserver.TimeshiftBufferDir", value: "{{ vdr_timeshift_directory }}"}
     - { key: "UpdateChannels", value: "3" }
+
+ - name: ensure timeshift directory
+   become: yes
+   file: path="{{ vdr_timeshift_directory }}" state="directory" owner="vdr" group="vdr"
