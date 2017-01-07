@@ -1,0 +1,1 @@
+SUSPEND_MODULES="$SUSPEND_MODULES ddbridge cxd2099 dvb_core" 

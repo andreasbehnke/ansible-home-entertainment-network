@@ -1,0 +1,19 @@
+---
+
+ - name: add yavdr repositories
+   become: yes
+   apt_repository: repo="ppa:yavdr/unstable-main"
+
+ - name: install dvb card driver
+   become: yes
+   apt: name="dddvb-dkms" state=latest
+   notify:
+     - reboot
+
+ - name: ensure directory for powermanagement configuration
+   become: yes
+   file: path="/etc/pm/config.d/" state="directory"
+
+ - name: reload modules after suspend to ram
+   become: yes
+   copy: dest="/etc/pm/config.d/00sleep_module" mode="u+x,g+x,o+x" src="00sleep_modules"

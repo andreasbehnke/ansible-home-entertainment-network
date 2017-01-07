@@ -25,6 +25,7 @@
   roles:
     - sshd
     - file-server
+    - digital-devices-dvb
     - video-disk-recorder
 
   post_tasks:
