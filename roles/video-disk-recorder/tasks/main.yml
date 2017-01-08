@@ -1,5 +1,7 @@
 ---
 
+ # install vdr
+
  - name: add yavdr repositories
    become: yes
    apt_repository: repo="{{ item }}"
@@ -19,6 +21,8 @@
     - vdr-plugin-live
     - vdr-plugin-vnsiserver
 
+ # configure service
+
  - name: enable vdr service
    become: yes
    lineinfile: dest="/etc/default/vdr" regexp="ENABLED" line="ENABLED=1"
@@ -30,6 +34,20 @@
  - name: enable lifeguard for open samba file shares
    become: yes
    lineinfile: dest="/etc/vdr/lifeguard.conf" line="smb locks"
+
+ # configure logging
+
+ - name: log vdr messages into own logfile - configure rsyslog
+   become: yes
+   copy: src="30-vdr.conf" dest="/etc/rsyslog.d/30-vdr.conf"
+   notify:
+     - restart rsyslog
+
+ - name: rotate vdr log files
+   become: yes
+   copy: src="logrotate_vdr" dest="/etc/logrotate.d/vdr"
+
+ # configure user settings
 
  - name: copy channel list
    become: yes
