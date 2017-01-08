@@ -1,3 +1,4 @@
 ---
   - include: media-server.yml
   - include: media-clients.yml
+  - include: media-management-clients.yml

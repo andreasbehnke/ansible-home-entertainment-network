@@ -1,0 +1,3 @@
+---
+
+  gconfig_path: "{{ user_home }}/.gconf/apps/rapid-photo-downloader/"
