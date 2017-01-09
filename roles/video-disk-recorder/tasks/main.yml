@@ -35,7 +35,18 @@
    become: yes
    lineinfile: dest="/etc/vdr/lifeguard.conf" line="smb locks"
 
+  # ***********************
+  # BUGFIX: ACPI wakeup is working, but network card is not coming up after shutdown. To cir
+  # ***********************
+
+ - name: prevent vdr from shutting server down. This prevents a bug with network device being buggy.
+   become: yes
+   lineinfile: dest="/etc/vdr/conf.d/00-vdr.conf" line="--shutdown=/usr/lib/vdr/vdr-shutdown.wrapper" state="absent"
+
  # configure logging
+ - name: log vdr messages into own logfile - configure rsyslog
+   become: yes
+   lineinfile: dest="/etc/vdr/conf.d/00-vdr.conf" line="--log=3.6"
 
  - name: log vdr messages into own logfile - configure rsyslog
    become: yes
