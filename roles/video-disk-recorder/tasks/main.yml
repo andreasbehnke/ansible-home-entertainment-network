@@ -36,9 +36,8 @@
    lineinfile: dest="/etc/vdr/lifeguard.conf" line="smb locks"
 
   # ***********************
-  # BUGFIX: ACPI wakeup is working, but network card is not coming up after shutdown. To cir
+  # BUGFIX: ACPI wakeup is working, but network card is not coming up after shutdown.
   # ***********************
-
  - name: prevent vdr from shutting server down. This prevents a bug with network device being buggy.
    become: yes
    lineinfile: dest="/etc/vdr/conf.d/00-vdr.conf" line="--shutdown=/usr/lib/vdr/vdr-shutdown.wrapper" state="absent"
