@@ -15,10 +15,11 @@
    with_items:
     - vdr
     - vdr-addon-acpiwakeup
-    - vdr-addon-lifeguard
     - vdr-plugin-dummydevice
     - vdr-plugin-epgsearch
+    - vdr-addon-lifeguard
     - vdr-plugin-live
+    - vdr-plugin-markad
     - vdr-plugin-vnsiserver
 
  # configure service
