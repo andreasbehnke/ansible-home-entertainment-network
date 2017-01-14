@@ -1,3 +1,4 @@
 files/authorized_keys.myuser.pub
 backup
 *.retry
+.bundle
