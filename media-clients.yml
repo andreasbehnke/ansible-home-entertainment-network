@@ -22,6 +22,7 @@
   roles:
     - sshd
     - cmprescott.xml
+    - raspberry_codec_license
     - kodi-media-client
 
   post_tasks:

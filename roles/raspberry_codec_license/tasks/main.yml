@@ -1,0 +1,7 @@
+---
+  - name: enable MPEG 2 license
+    become: yes
+    lineinfile: dest="/boot/config.txt" line="decode_MPG2={{ raspberry_mpeg2_license }}"
+    when: "'osmc' in group_names"
+    notify:
+     - reboot
