@@ -1,4 +1,3 @@
 ---
 homeserver_host: "{{ hostvars['homeserver']['ansible_host'] }}"
 homeserver_mac: "{{ hostvars['homeserver']['mac_addr'] }}"
-user_home: "/home/{{ ansible_user_id }}"
