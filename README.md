@@ -1,19 +1,22 @@
-# Raspberry Pi Media Center
+# Home Entertainment Network
 
-The purpose of this repository is to provide an ansible playbook for managing multiple raspberry pi media center installations. Playbook runs on Raspberry Pi with default LibreELEC installation and performs these tasks:
+Purpose of this ansible project is to provide playbooks for members of a home entertainment network. The network consist of the following members:
 
- * Use public/private key based SSH authentication and disable password authentication for root
- * Setup correct timeservers
- * Setup TV using vdr backend
- * ...
+ * homeserver
+   This singleton instance provides a TV video recorder and file shares for different media types.
+   The following software will be installed:
+   - VDR with VNSI plugin for streaming clients
+   - Live plugin for VDR to manage video recorder with webfrontend
+   - Samba for providing read/write access to media shares
 
-# Precondition
+ * media-clients
+   A media center software to play back media provided by homeserver. These clients are either OSMC based raspberry pi devices or Ubuntu based desktop clients.
+   The following software will be installed:
+   - Kodi with VNSI PVR plugin for streaming live TV from homeserver
+   - Configured to access media shares of homeserver
 
- * ansible-galaxy install cmprescott.xml
-
-# Usage LibreELEC
-
- * setup the raspberry pi with LibreELEC
- * create file files/authorized_keys.myuser.pub and add your public SSH key to this file
- * when running playbook the first time, type "ansible-playbook setup-libreelec.yml --ask-pass"
- * after first run, you can omit --ask-pass
+ * media-management-clients
+   A client which is able to manage photos and videos on homeserver.
+   The following software will be installed:
+   - rapid photo downloader for uploading private media like photos and videos from smartphones to homeserver
+   - video transcoding tool handbrake
