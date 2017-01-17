@@ -5,3 +5,4 @@
   roles:
     - sshd
     - photo-manager
+    - video-manager

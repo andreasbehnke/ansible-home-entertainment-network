@@ -1,0 +1,12 @@
+---
+
+ - name: add handbrake repository
+   become: yes
+   apt_repository: repo="ppa:stebbins/handbrake-releases"
+
+ - name: install handbrake video transcoding tool
+   become: yes
+   apt: name="{{ item }}" state=latest
+   with_items:
+    - handbrake
+    - handbrake-cli
