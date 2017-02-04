@@ -6,7 +6,7 @@
 
  - name: install handbrake video transcoding tool
    become: yes
-   apt: name="{{ item }}" state=latest
+   apt: name="{{ item }}" state=latest update_cache=yes
    with_items:
-    - handbrake
+    - handbrake-gtk
     - handbrake-cli
