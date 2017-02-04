@@ -18,7 +18,7 @@
     - { xpath: "/settings/general/settinglevel", value: 3 }
     - { xpath: "/settings/lookandfeel/skin", value: "skin.confluence" }
     - { xpath: "/settings/lookandfeel/soundskin", value: "OFF" }
-    - { xpath: "/settings/powermanagement/shutdowntime", value: 30 }
+    - { xpath: "/settings/powermanagement/shutdowntime", value: 120 }
     - { xpath: "/settings/powermanagement/wakeonaccess", value: "true" }
     - { xpath: "/settings/pvrmanager/enabled", value: "true" }
     - { xpath: "/settings/pvrmenu/iconpath", value: "{{ kodi_channel_logos }}" }
