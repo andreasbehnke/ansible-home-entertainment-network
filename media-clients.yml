@@ -7,6 +7,7 @@
     PATH: '/bin:/sbin:/usr/bin:/usr/sbin:/usr/osmc/bin/'
 
   pre_tasks:
+    - debug: msg="{{ansible_distribution}} - {{ansible_distribution_release}}"
     - name: stop kodi
       become: yes
       service: name={{ kodi_service }} state=stopped
