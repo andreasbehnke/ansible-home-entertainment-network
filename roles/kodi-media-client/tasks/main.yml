@@ -8,16 +8,16 @@
     with_items:
       - kodi
       - kodi-pvr-vdr-vnsi
-    when: "'ubuntu' in group_names"
+    when: "ansible_distribution == 'Ubuntu'"
   - name: test if kodi base dir exists
     stat: path={{ kodi_base }}
     register: kodi_base_dir
-    when: "'ubuntu' in group_names"
+    when: "ansible_distribution == 'Ubuntu'"
   - name: start kodi for the first time to create configuration folder
     shell: kodi
     async: 1
     poll: 0
-    when: "'ubuntu' in group_names and kodi_base_dir.stat.exists == False"
+    when: "ansible_distribution == 'Ubuntu' and kodi_base_dir.stat.exists == False"
 
   # configure kodi - guisettings.xml
 
