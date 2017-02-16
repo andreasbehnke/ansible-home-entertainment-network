@@ -5,3 +5,4 @@
   - include: "kodi_wol.yml"
   - include: "kodi_pvr_vdr_vnsi.yml"
   - include: "kodi_sources.yml"
+  - include: "kodi_skin_estuary.yml"

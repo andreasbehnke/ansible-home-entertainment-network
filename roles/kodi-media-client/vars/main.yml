@@ -6,6 +6,7 @@
   kodi_wakeonlan: "{{ kodi_base }}/userdata/wakeonlan.xml"
   kodi_database: "{{ kodi_base }}/userdata/Database"
   kodi_addon_data: "{{ kodi_base }}/userdata/addon_data"
+  kodi_estuary_settings: "{{ kodi_addon_data }}/skin.estuary/settings.xml"
 
   kodi_channel_logos: "{{ ansible_env.HOME }}/channel_logos/"
 
@@ -28,3 +29,9 @@
     - "/settings/powermanagement/*/@default"
     - "/settings/pvrmanager/*/@default"
     - "/settings/pvrmenu/*/@default"
+
+  kodi_skin_estuary_values:
+    - { id: "HomeMenuNoMusicVideoButton", value: "true" }
+    - { id: "HomeMenuNoMovieButton", value: "true" }
+    - { id: "HomeMenuNoProgramsButton", value: "true" }
+    - { id: "HomeMenuNoTVShowButton", value: "true" }
