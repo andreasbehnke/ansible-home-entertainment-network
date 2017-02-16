@@ -1,0 +1,18 @@
+---
+
+   - name: copy sources.xml
+     template: src=sources.xml.j2 dest={{ kodi_sources }}
+   - name: find view mode database file
+     find: path={{ kodi_database }} patterns=ViewModes*.db
+     register: kodi_viewmodes_database
+     changed_when: False
+   - name: test if view mode for pictures is set
+     shell: echo 'SELECT count(*) FROM view WHERE window=10002;' | sqlite3 {{ kodi_viewmodes_database.files[0].path }}
+     register: pictures_viewmode
+     changed_when: pictures_viewmode.stdout == '0'
+   - name: set view mode for pictures to thumbnail
+     shell: echo 'INSERT INTO view (window, path, viewMode, sortMethod, sortOrder, sortAttributes, skin) VALUES (10002,"/",66036,1,1,0,"skin.confluence");' | sqlite3 {{ kodi_viewmodes_database.files[0].path }}
+     when: pictures_viewmode.stdout == '0'
+   - name: set view mode for remote pictures to thumbnail
+     shell: echo 'INSERT INTO view (window, path, viewMode, sortMethod, sortOrder, sortAttributes, skin) VALUES (10002,"nfs://{{ homeserver_host }}/srv/picture/",66036,1,1,0,"skin.confluence");' | sqlite3 {{ kodi_viewmodes_database.files[0].path }}
+     when: pictures_viewmode.stdout == '0'

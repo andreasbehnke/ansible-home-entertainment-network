@@ -1,0 +1,19 @@
+---
+
+   - name: make sure pvr.vdr.vnsi plugin directory exists
+     file: path={{ kodi_addon_data }}/pvr.vdr.vnsi state=directory
+   - name: configure pvr.vdr.vnsi plugin
+     template: src=pvr.vdr.vnsi.settings.xml.j2 dest={{ kodi_addon_data }}/pvr.vdr.vnsi/settings.xml
+   - name: find addon database file
+     find: path={{ kodi_database }} patterns=Addons*.db
+     register: kodi_addon_database
+     changed_when: False
+   - name: test if plugin is installed
+     shell: echo 'SELECT count(*) FROM installed WHERE addonID="pvr.vdr.vnsi" and enabled=0;' | sqlite3 {{ kodi_addon_database.files[0].path }}
+     register: vnsi_installed
+     changed_when: vnsi_installed.stdout == '1'
+   - name: activate plugin in addon database
+     shell: echo 'UPDATE installed SET enabled=1 WHERE addonID="pvr.vdr.vnsi";' | sqlite3 {{ kodi_addon_database.files[0].path }}
+     when: vnsi_installed.stdout == '1'
+   - name: copy channel logos
+     unarchive: src=channel_logos.tar.gz dest={{ ansible_env.HOME }}

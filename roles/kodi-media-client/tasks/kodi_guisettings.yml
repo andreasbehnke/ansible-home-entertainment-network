@@ -1,0 +1,12 @@
+---
+
+   - name: wait for file being created
+     wait_for: path={{ kodi_gui_settings }}
+     changed_when: False
+   - name: apply all gui settings
+     xml: file={{ kodi_gui_settings }} xpath={{ item.xpath }} value={{ item.value }}
+     with_items: "{{ kodi_gui_settings_values }}"
+   - name: remove default attribute
+     xml: file={{ kodi_gui_settings }} xpath={{ item }} ensure=absent
+     changed_when: False
+     with_items: "{{ kodi_gui_settings_remove_default }}"
