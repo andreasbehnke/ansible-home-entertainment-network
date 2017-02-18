@@ -17,7 +17,7 @@
     - { xpath: "/settings/locale/timezone", value: "Europe/Berlin" }
     - { xpath: "/settings/locale/timezonecountry", value: "Germany" }
     - { xpath: "/settings/general/settinglevel", value: 3 }
-    - { xpath: "/settings/lookandfeel/soundskin", value: "OFF" }
+    - { xpath: "/settings/lookandfeel/soundskin", value: "" }
     - { xpath: "/settings/powermanagement/shutdowntime", value: 120 }
     - { xpath: "/settings/powermanagement/wakeonaccess", value: "true" }
     - { xpath: "/settings/pvrmenu/iconpath", value: "{{ kodi_channel_logos }}" }
