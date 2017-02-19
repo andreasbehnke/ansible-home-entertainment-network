@@ -1,8 +1,11 @@
 ---
- 
+
+   - name: add xbmc repository
+     become: yes
+     apt_repository: repo="ppa:team-xbmc/ppa"
    - name: install kodi
      become: yes
-     apt: name={{ item }} state=latest
+     apt: name={{ item }} state=latest update_cache=yes
      with_items:
        - kodi
        - kodi-pvr-vdr-vnsi
