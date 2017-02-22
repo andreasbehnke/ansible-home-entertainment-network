@@ -7,10 +7,10 @@
      find: path={{ kodi_database }} patterns=Addons*.db
      register: kodi_addon_database
      changed_when: False
-   - name: test if plugin is installed
+   - name: test if skin estuary is installed
      shell: echo 'SELECT count(*) FROM installed WHERE addonID="skin.estuary" and enabled=0;' | sqlite3 {{ kodi_addon_database.files[0].path }}
      register: skin_estuary_installed
      changed_when: skin_estuary_installed.stdout == '1'
-   - name: activate plugin in addon database
+   - name: activate skin estuary in addon database
      shell: echo 'UPDATE installed SET enabled=1 WHERE addonID="skin.estuary";' | sqlite3 {{ kodi_addon_database.files[0].path }}
      when: skin_estuary_installed.stdout == '1'
