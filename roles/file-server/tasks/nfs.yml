@@ -1,0 +1,11 @@
+---
+
+  - name: install nfs service
+    become: yes
+    apt: name=nfs-kernel-server state=latest
+
+  - name: share public files with nfs for fast access
+    become: yes
+    lineinfile: dest=/etc/exports line="{{ item.path }} 192.168.0.0/255.255.255.0(ro,async)" regexp={{ item.path }}
+    with_items: "{{ public_file_shares }}"
+    notify: restart nfs
