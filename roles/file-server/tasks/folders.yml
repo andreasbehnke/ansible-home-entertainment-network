@@ -1,0 +1,10 @@
+---
+
+  - name: create local file structure for public shared files
+    become: yes
+    file: path={{ item.path }} owner={{ samba_force_user }} group={{ samba_force_group }} mode="0775" state=directory
+    with_items: "{{ public_file_shares }}"
+  - name: create local file structure for private shared files
+    become: yes
+    file: path={{ item.path }} owner={{ samba_force_user }} group={{ samba_force_group }} mode="0770" state=directory
+    with_items: "{{ private_file_shares }}"

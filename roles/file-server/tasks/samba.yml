@@ -1,0 +1,10 @@
+---
+  
+  - name: install samba service
+    become: yes
+    apt: name=samba state=latest
+  - name: configure samba
+    become: yes
+    template: src=smb.conf.j2 dest=/etc/samba/smb.conf
+    notify:
+      - restart samba
