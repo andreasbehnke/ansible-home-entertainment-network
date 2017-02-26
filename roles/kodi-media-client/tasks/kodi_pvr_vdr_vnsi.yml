@@ -16,4 +16,4 @@
      shell: echo 'UPDATE installed SET enabled=1 WHERE addonID="pvr.vdr.vnsi";' | sqlite3 {{ kodi_addon_database.files[0].path }}
      when: vnsi_installed.stdout == '1'
    - name: copy channel logos
-     unarchive: src=channel_logos.tar.gz dest={{ ansible_env.HOME }}
+     unarchive: src=channel_logos.tar.gz dest={{ kodi_base }}

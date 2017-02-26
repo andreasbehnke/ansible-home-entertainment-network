@@ -8,7 +8,7 @@
   kodi_addon_data: "{{ kodi_base }}/userdata/addon_data"
   kodi_skin_estuary: "{{ kodi_addon_data }}/skin.estuary"
 
-  kodi_channel_logos: "{{ ansible_env.HOME }}/channel_logos/"
+  kodi_channel_logos: "{{ kodi_base }}/channel_logos/"
 
   kodi_gui_settings_values:
     - { xpath: "/settings/locale/country", value: "Deutschland" }
