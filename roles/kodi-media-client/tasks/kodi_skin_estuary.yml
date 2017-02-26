@@ -1,5 +1,16 @@
 ---
-
-   - name: apply all estuary settings
-     xml: file={{ kodi_estuary_settings }} xpath=/settings/setting[@id='{{ item.id }}'] value={{ item.value }}
-     with_items: "{{ kodi_skin_estuary_values }}"
+   - name: ensure estuary settings folder
+     file: dest="{{ kodi_skin_estuary }}" state="directory"
+   - name: copy estuary settings
+     copy: src="skin.estuary.settings.xml" dest="{{ kodi_skin_estuary }}/settings.xml"
+   - name: find addon database file
+     find: path={{ kodi_database }} patterns=Addons*.db
+     register: kodi_addon_database
+     changed_when: False
+   - name: test if skin estuary is installed
+     shell: echo 'SELECT count(*) FROM installed WHERE addonID="skin.estuary" and enabled=0;' | sqlite3 {{ kodi_addon_database.files[0].path }}
+     register: skin_estuary_installed
+     changed_when: skin_estuary_installed.stdout == '1'
+   - name: activate skin estuary in addon database
+     shell: echo 'UPDATE installed SET enabled=1 WHERE addonID="skin.estuary";' | sqlite3 {{ kodi_addon_database.files[0].path }}
+     when: skin_estuary_installed.stdout == '1'
