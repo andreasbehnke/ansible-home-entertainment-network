@@ -1,0 +1,12 @@
+---
+
+ - name: install cd reader
+   become: yes
+   apt: name="{{ item }}" state=latest update_cache=yes
+   with_items:
+    - asunder
+    - lame
+    - vorbis-tools
+    - flac
+    - libopus0
+    - wavpack
