@@ -89,6 +89,7 @@
     - { key: "MarginStart", value: "1" }
     - { key: "MarginStop", value: "5" }
     - { key: "UseVps", value: "1" }
+    - { key: "DefaultLifetime", value: "60" }
 
  - name: ensure timeshift directory
    become: yes
