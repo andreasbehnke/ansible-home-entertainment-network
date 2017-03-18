@@ -15,7 +15,7 @@
       when: kodi_service is defined
     - name: install dependencies for role xml
       become: yes
-      apt: name=python-lxml state=latest
+      apt: name=python-lxml state=latest update_cache=yes
     - name: install dependencies for modifying sqlite3 files
       become: yes
       apt: name=sqlite3 state=latest
