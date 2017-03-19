@@ -23,9 +23,9 @@
   roles:
     - sshd
     - cmprescott.xml
-    - { role: raspberry_codec_license, when: raspberry_mpeg2_license is defined }
-    - { role: hifiberry, when: hifiberry is defined }
     - kodi-media-client
+    - { role: raspberry-codec-license, when: raspberry_mpeg2_license is defined }
+    - { role: hifiberry, when: hifiberry is defined }
 
   post_tasks:
 
