@@ -1,0 +1,14 @@
+---
+
+  - name: disable on board audio
+    become: yes
+    lineinfile: dest="/boot/config.txt" regexp="dtparam=audio=" line="dtparam=audio=off"
+    notify: reboot
+
+  - name: configure hardware overlay
+    become: yes
+    lineinfile: dest="/boot/config.txt" line="dtoverlay={{hifiberry}}-overlay"
+    notify: reboot
+
+  - name: apply gui settings
+    xml: file={{ kodi_gui_settings }} xpath="/settings/audiooutput/audiodevice" value="ALSA:@"
