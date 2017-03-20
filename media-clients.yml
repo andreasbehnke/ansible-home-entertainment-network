@@ -26,6 +26,7 @@
     - kodi-media-client
     - { role: raspberry-codec-license, when: raspberry_mpeg2_license is defined }
     - { role: hifiberry, when: hifiberry is defined }
+    - { role: ir-remote, when: ir_remote_name is defined }
 
   post_tasks:
 
