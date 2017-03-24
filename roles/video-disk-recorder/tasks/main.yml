@@ -95,3 +95,8 @@
  - name: ensure timeshift directory
    become: yes
    file: path="{{ vdr_timeshift_directory }}" state="directory" owner="vdr" group="vdr"
+
+ - name: export recordings directory read only
+   become: yes
+   lineinfile: dest=/etc/exports line="/srv/vdr/video 192.168.0.0/255.255.255.0(ro,async,all_squash,insecure)" regexp=/srv/vdr/video
+   notify: restart nfs

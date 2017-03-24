@@ -3,3 +3,7 @@
   - name: restart rsyslog
     service: name="rsyslog" state=restarted
     become: yes
+
+  - name: restart nfs
+    service: name=nfs-kernel-server state=restarted
+    become: yes
