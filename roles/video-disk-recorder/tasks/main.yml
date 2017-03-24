@@ -90,6 +90,7 @@
     - { key: "MarginStop", value: "5" }
     - { key: "UseVps", value: "1" }
     - { key: "DefaultLifetime", value: "60" }
+    - { key: "MaxVideoFileSize", value: "220000"}
 
  - name: ensure timeshift directory
    become: yes
