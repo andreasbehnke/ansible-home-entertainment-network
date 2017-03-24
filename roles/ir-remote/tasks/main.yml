@@ -1,0 +1,10 @@
+---
+
+  - name: add overlay for lirc_rpi using pin 23
+    become: yes
+    lineinfile: dest="/boot/config.txt" line="dtoverlay=lirc-rpi,gpio_in_pin=23"
+    notify: reboot
+
+  - name: select ir remote model
+    become: yes
+    file: dest="/etc/lirc/lircd.conf" state="link" src="/etc/lirc/{{ir_remote_name}}-lircd.conf"

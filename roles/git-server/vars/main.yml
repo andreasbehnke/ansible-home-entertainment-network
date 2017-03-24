@@ -1,0 +1,5 @@
+---
+
+  git_repositories:
+    - "/srv/git/inventory.git"
+    - "/srv/git/credentials.git"

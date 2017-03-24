@@ -1,7 +1,5 @@
 ---
 
-  kodi_base: "{{ ansible_env.HOME }}/.kodi"
-  kodi_gui_settings: "{{ kodi_base }}/userdata/guisettings.xml"
   kodi_sources: "{{ kodi_base }}/userdata/sources.xml"
   kodi_wakeonlan: "{{ kodi_base }}/userdata/wakeonlan.xml"
   kodi_database: "{{ kodi_base }}/userdata/Database"

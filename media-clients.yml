@@ -15,7 +15,7 @@
       when: kodi_service is defined
     - name: install dependencies for role xml
       become: yes
-      apt: name=python-lxml state=latest
+      apt: name=python-lxml state=latest update_cache=yes
     - name: install dependencies for modifying sqlite3 files
       become: yes
       apt: name=sqlite3 state=latest
@@ -23,8 +23,10 @@
   roles:
     - sshd
     - cmprescott.xml
-    - raspberry_codec_license
     - kodi-media-client
+    - { role: raspberry-codec-license, when: raspberry_mpeg2_license is defined }
+    - { role: hifiberry, when: hifiberry is defined }
+    - { role: ir-remote, when: ir_remote_name is defined }
 
   post_tasks:
 

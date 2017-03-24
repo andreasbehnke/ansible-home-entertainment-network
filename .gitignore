@@ -1,4 +1,5 @@
 roles/sshd/files/authorized_keys.myuser.pub
+roles/git-server/files/authorized_keys.git.pub
 backup
 *.retry
 .bundle

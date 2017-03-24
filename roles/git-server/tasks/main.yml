@@ -1,0 +1,28 @@
+---
+
+  - name: install git
+    become: yes
+    apt: name=git state=latest
+
+  - name: add git user
+    become: yes
+    user: name=git shell=/usr/bin/git-shell home=/home/git generate_ssh_key=yes
+
+  - name: add authorized keys
+    become: yes
+    authorized_key: user="git" key="{{ lookup('file', 'authorized_keys.git.pub') }}"
+
+  - name: create directories for git repositories
+    become: yes
+    file: path={{ item }} owner=git group=git mode="0750" state=directory
+    with_items: "{{git_repositories}}"
+
+  - name: initialize git repositories
+    become: yes
+    command: chdir={{ item }} creates={{ item }}/HEAD git init --bare
+    with_items: "{{git_repositories}}"
+
+  - name: apply credentials to repositories
+    become: yes
+    file: path={{ item }} owner=git group=git mode="0750" state=directory recurse=yes
+    with_items: "{{git_repositories}}"
