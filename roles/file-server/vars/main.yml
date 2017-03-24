@@ -8,5 +8,6 @@
     - { name: "picture", path: "/srv/picture" }
     - { name: "music", path: "/srv/music" }
     - { name: "video", path: "/srv/video" }
+    - { name: "recordings", path: "/srv/vdr/video" }
   private_file_shares:
     - { name: "documents", path: "/srv/documents" }
