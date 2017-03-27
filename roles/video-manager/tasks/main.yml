@@ -10,3 +10,14 @@
    with_items:
     - handbrake-gtk
     - handbrake-cli
+
+ - name: add avidemux repository
+   become: yes
+   apt_repository: repo="ppa:rebuntu16/avidemux+unofficial"
+
+ - name: install avidemux video cutting
+   become: yes
+   apt: name="{{ item }}" state=latest update_cache=yes
+   with_items:
+    - avidemux
+    - avidemux2.6-qt5
