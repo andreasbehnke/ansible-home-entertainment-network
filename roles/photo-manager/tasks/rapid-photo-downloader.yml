@@ -1,0 +1,11 @@
+---
+
+ - name: install rapid photo downloader
+   become: yes
+   apt: name="rapid-photo-downloader" state=latest
+
+ - name: ensure configuration path
+   file: path="{{ gconfig_path }}" state="directory"
+
+ - name: copy default configuration
+   template: src=%gconf.xml.j2 dest="{{ gconfig_path }}%gconf.xml"

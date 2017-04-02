@@ -1,0 +1,5 @@
+---
+
+ - name: install gthumb
+   become: yes
+   apt: name="gthumb" state=latest
