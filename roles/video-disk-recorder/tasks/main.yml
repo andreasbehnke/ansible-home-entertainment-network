@@ -98,5 +98,5 @@
 
  - name: export recordings directory read only
    become: yes
-   lineinfile: dest=/etc/exports line="/srv/vdr/video 192.168.0.0/255.255.255.0(ro,async,all_squash,insecure)" regexp=/srv/vdr/video
+   lineinfile: dest=/etc/exports line="/srv/vdr/video {{ homeserver_network_mask }}(ro,async,all_squash,insecure)" regexp=/srv/vdr/video
    notify: restart nfs
