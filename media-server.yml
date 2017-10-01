@@ -23,7 +23,7 @@
      changed_when: False
 
   roles:
-    - sshd
+    #- sshd
     - file-server
     - digital-devices-dvb
     - video-disk-recorder
