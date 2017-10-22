@@ -274,6 +274,16 @@ force directory mode = 0775
 force create mode = 0764
 {% endfor %}
 
+# public file shares, only readonly access
+
+{% for share in public_readonly_file_shares %}
+[{{ share.name }}]
+path = {{ share.path }}
+browsable = yes
+guest ok = yes
+read only = yes
+{% endfor %}
+
 # private file shares, no guest access
 
 {% for share in private_file_shares %}

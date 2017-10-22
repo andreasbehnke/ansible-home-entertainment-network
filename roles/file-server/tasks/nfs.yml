@@ -7,5 +7,5 @@
   - name: share public files with nfs for fast access
     become: yes
     lineinfile: dest=/etc/exports line="{{ item.path }} {{ homeserver_network_mask }}(ro,async,all_squash,insecure)" regexp={{ item.path }}
-    with_items: "{{ public_file_shares }}"
+    with_items: "{{ public_file_shares }} + {{ public_readonly_file_shares }}"
     notify: restart nfs

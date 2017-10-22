@@ -10,3 +10,5 @@
     - { name: "video", path: "/srv/video" }
   private_file_shares:
     - { name: "documents", path: "/srv/documents" }
+  public_readonly_file_shares:
+    - { name: "pvr", path: "/srv/vdr/video" }
