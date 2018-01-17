@@ -27,7 +27,7 @@
     - file-server
     - digital-devices-dvb
     - video-disk-recorder
-    #- git-server
+    - git-server
 
   post_tasks:
     - name: start vdr
