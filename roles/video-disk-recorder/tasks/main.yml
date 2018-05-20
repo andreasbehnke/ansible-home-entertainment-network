@@ -2,6 +2,8 @@
 
  # install vdr
 
+ # TODO: switch to 18.04, install https://launchpad.net/~seahawk1986-hotmail/+archive/ubuntu/vdr-2.3.9
+
  - name: add yavdr repositories
    become: yes
    apt_repository: repo="{{ item }}"
