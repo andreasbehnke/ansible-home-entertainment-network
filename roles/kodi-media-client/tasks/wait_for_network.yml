@@ -1,5 +1,5 @@
 ---
-
+    # https://discourse.osmc.tv/t/force-rc-local-to-wait-for-network/11593
     - name: enable wait for network
       become: yes
       systemd: name=connman-wait-for-network enabled=yes daemon_reload=yes
