@@ -1,0 +1,6 @@
+---
+
+    - name: enable wait for network
+      become: yes
+      systemd: name=connman-wait-for-network enabled=yes daemon_reload=yes
+      when: "ansible_distribution == 'OSMC'"

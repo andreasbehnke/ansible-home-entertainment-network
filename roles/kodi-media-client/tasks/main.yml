@@ -1,5 +1,6 @@
 ---
 
+  - include: "wait_for_network.yml"
   - include: "kodi_install.yml"
   - include: "kodi_guisettings.yml"
   - include: "kodi_wol.yml"
