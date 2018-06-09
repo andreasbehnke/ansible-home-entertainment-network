@@ -21,7 +21,7 @@
       apt: name=sqlite3 state=latest
 
   roles:
-    #- sshd
+    - sshd
     - cmprescott.xml
     - kodi-media-client
     - { role: raspberry-codec-license, when: raspberry_mpeg2_license is defined }
