@@ -2,30 +2,16 @@
     <programs>
         <default pathversion="1"></default>
     </programs>
-    <video>
-        <default pathversion="1"></default>
-        <source>
-            <name>video@homeserver</name>
-            <path pathversion="1">nfs://{{ homeserver_host }}/srv/video/</path>
-            <allowsharing>false</allowsharing>
-        </source>
-    </video>
-    <music>
-        <default pathversion="1"></default>
-        <source>
-            <name>music@homeserver</name>
-            <path pathversion="1">nfs://{{ homeserver_host }}/srv/music/</path>
-            <allowsharing>false</allowsharing>
-        </source>
-    </music>
-    <pictures>
-        <default pathversion="1"></default>
-        <source>
-            <name>picture@homeserver</name>
-            <path pathversion="1">nfs://{{ homeserver_host }}/srv/picture/</path>
-            <allowsharing>false</allowsharing>
-        </source>
-    </pictures>
+{% for share in public_file_shares %}
+    <{{ share.kodi_source }}>
+      <default pathversion="1"></default>
+      <source>
+          <name>{{ share.name }}@{{ homeserver_host }}</name>
+          <path pathversion="1">{{ share.mount }}</path>
+          <allowsharing>false</allowsharing>
+      </source>
+    </{{ share.kodi_source }}>
+{% endfor %}
     <files>
         <default pathversion="1"></default>
     </files>

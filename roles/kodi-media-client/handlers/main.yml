@@ -1,0 +1,5 @@
+---
+
+  - name: restart mount
+    systemd: name=remote-fs.target state=restarted daemon_reload=yes
+    become: yes

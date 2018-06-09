@@ -1,5 +1,10 @@
 ---
-
+   - name: mount nfs shares
+     become: yes
+     lineinfile: dest="/etc/fstab" regexp="{{ item.path }}" line="{{ homeserver_host }}:{{ item.path }} {{ item.mount }} nfs noauto,x-systemd.automount 0 0" create=yes
+     with_items: "{{ public_file_shares }}"
+     notify:
+       - restart mount
    - name: copy sources.xml
      template: src=sources.xml.j2 dest={{ kodi_sources }}
    - name: find view mode database file
