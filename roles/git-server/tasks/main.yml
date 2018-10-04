@@ -10,10 +10,10 @@
     user: name=git shell=/usr/bin/git-shell home=/home/git generate_ssh_key=yes
     when: git_repositories is defined
 
-  #- name: add authorized keys
-  #  become: yes
-  #  authorized_key: user="git" key="{{ lookup('file', 'authorized_keys.git.pub') }}"
-  #  when: git_repositories is defined
+  - name: git add authorized keys
+    become: yes
+    authorized_key: user=git key="{{ lookup('file', '{{ remote_access_authorized_keys_prefix }}/{{ item }}.pub') }}"
+    with_items: "{{ git_access_authorized_users }}"
 
   - name: create directories for git repositories
     become: yes
@@ -29,6 +29,6 @@
 
   - name: apply credentials to repositories
     become: yes
-    file: path={{ item }} owner=git group=git mode="0750" state=directory recurse=yes
+    file: path={{ item }} owner=git group=git mode="0770" state=directory recurse=yes
     with_items: "{{git_repositories}}"
     when: git_repositories is defined
