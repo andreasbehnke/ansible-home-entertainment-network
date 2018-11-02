@@ -1,0 +1,3 @@
+---
+ - name: remote-access
+   src: https://github.com/andreasbehnke/ansible-role-remote-access.git
