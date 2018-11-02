@@ -258,6 +258,7 @@
 # to the drivers directory for these users to have write rights in it
 ;   write list = root, @lpadmin
 
+{% if public_file_shares is defined %}
 # public file shares, guest have readonly access
 
 {% for share in public_file_shares %}
@@ -273,7 +274,9 @@ force group = {{ samba_force_group }}
 force directory mode = 0775
 force create mode = 0764
 {% endfor %}
+{% endif %}
 
+{% if public_readonly_file_shares is defined %}
 # public file shares, only readonly access
 
 {% for share in public_readonly_file_shares %}
@@ -283,7 +286,9 @@ browsable = yes
 guest ok = yes
 read only = yes
 {% endfor %}
+{% endif %}
 
+{% if private_file_shares is defined %}
 # private file shares, no guest access
 
 {% for share in private_file_shares %}
@@ -300,3 +305,4 @@ force group = {{ samba_force_group }}
 force directory mode = 0770
 force create mode = 0760
 {% endfor %}
+{% endif %}

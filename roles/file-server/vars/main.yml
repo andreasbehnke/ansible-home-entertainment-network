@@ -1,6 +1,1 @@
 ---
-
-  samba_workgroup: "My Sweet Home"
-  samba_force_user: "{{ ansible_user_id }}"
-  samba_force_group: "sambashare"
-  samba_write_list: "@{{ samba_force_group }}"

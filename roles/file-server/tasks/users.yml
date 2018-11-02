@@ -1,0 +1,12 @@
+---
+
+  - name: add samba force group
+    become: yes
+    group:
+      name: "{{ samba_force_group }}"
+
+  - name: add samba force user
+    become: yes
+    user:
+      name: "{{ samba_force_user }}"
+      group: "{{ samba_force_group }}"

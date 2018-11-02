@@ -1,5 +1,6 @@
 ---
 
- - include: folders.yml
  - include: samba.yml
  - include: nfs.yml
+ - include: users.yml
+ - include: folders.yml
