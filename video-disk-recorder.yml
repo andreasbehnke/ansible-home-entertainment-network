@@ -1,0 +1,34 @@
+---
+
+- hosts: video-disk-recorder
+
+  pre_tasks:
+   - name: prefere ipv4 over ipv6 to fix DNS problem with secure.ubuntu
+     become: yes
+     lineinfile: dest="/etc/gai.conf" line="precedence ::ffff:0:0/96  100" state="present"
+
+   - name: update apt cache
+     become: yes
+     apt: update_cache=yes
+     changed_when: False
+
+   - name: test if vdr is installed
+     stat: path=/etc/init.d/vdr
+     register: vdr_service
+
+   - name: stop vdr
+     become: yes
+     service: name=vdr state=stopped
+     when: vdr_service.stat.exists
+     changed_when: False
+
+  roles:
+    #- digital-devices-dvb
+    - video-disk-recorder
+    - git-server
+
+  post_tasks:
+    - name: start vdr
+      become: yes
+      service: name=vdr state=started
+      changed_when: False
