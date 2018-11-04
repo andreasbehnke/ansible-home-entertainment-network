@@ -10,3 +10,17 @@
     user:
       name: "{{ samba_force_user }}"
       group: "{{ samba_force_group }}"
+
+  - name: add samba users to system
+    become: yes
+    user:
+      name: "{{ item.name }}"
+      groups: "{{ samba_force_group }},users"
+    with_items: "{{samba_users}}"
+
+  - name: add samba users to samba
+    become: yes
+    shell: "(echo {{ item['pass'] }}; echo {{ item['pass'] }}) | smbpasswd -s -a {{ item['name'] }}"
+    args:
+      executable: /bin/bash
+    with_items: '{{ samba_users }}'

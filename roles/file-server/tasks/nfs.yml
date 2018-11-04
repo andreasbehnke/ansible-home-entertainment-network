@@ -7,7 +7,14 @@
 
   - name: share public files with nfs for fast access
     become: yes
-    lineinfile: dest=/etc/exports line="{{ item.path }} {{ homeserver_network_mask }}(ro,async,all_squash,insecure)" regexp={{ item.path }}
-    with_items: "{{ public_file_shares }} + {{ public_readonly_file_shares }}"
-    when: (public_file_shares is defined) or (public_readonly_file_shares is defined)
+    lineinfile: dest=/etc/exports line="{{ item.path }} {{ nfs_network_mask }}(ro,async,all_squash,insecure)" regexp={{ item.path }}
+    with_items: "{{ public_file_shares }}"
+    when: public_file_shares is defined
+    notify: restart nfs
+
+  - name: share public readonly files with nfs for fast access
+    become: yes
+    lineinfile: dest=/etc/exports line="{{ item.path }} {{ nfs_network_mask }}(ro,async,all_squash,insecure)" regexp={{ item.path }}
+    with_items: "{{ public_readonly_file_shares }}"
+    when: public_readonly_file_shares is defined
     notify: restart nfs

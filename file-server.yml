@@ -1,0 +1,13 @@
+---
+
+- hosts: file-server
+
+  pre_tasks:
+   - name: update apt cache
+     become: yes
+     apt: update_cache=yes
+     changed_when: False
+
+  roles:
+    - remote-access
+    - file-server
