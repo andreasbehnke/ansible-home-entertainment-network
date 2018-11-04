@@ -11,3 +11,4 @@
   roles:
     - remote-access
     - file-server
+    - music-server
