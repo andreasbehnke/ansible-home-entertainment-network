@@ -3,7 +3,7 @@
 - hosts: media-management-clients
 
   roles:
-    #- sshd
+    - remote-access
     - photo-manager
     - video-manager
     - music-manager
