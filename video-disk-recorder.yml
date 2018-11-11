@@ -25,7 +25,6 @@
   roles:
     #- digital-devices-dvb
     - video-disk-recorder
-    - git-server
 
   post_tasks:
     - name: start vdr
