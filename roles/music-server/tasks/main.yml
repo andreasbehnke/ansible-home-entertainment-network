@@ -7,3 +7,18 @@
   - name: install logitech media service
     become: yes
     apt: deb="{{ lookup('url', '{{ logitech_media_service_download_url }}') }}"
+
+  - name: add squeezeboxserver user to group for read/write access to share
+    become: yes
+    user:
+      name: squeezeboxserver
+      groups: "{{ music_server_group }}"
+      append: yes
+
+  - name: make sure playlist folder exists with proper file permissions
+    become: yes
+    file:
+      path: "{{ music_server_playlist_path }}"
+      state: directory
+      owner: squeezeboxserver
+      group: "{{ music_server_group }}"
