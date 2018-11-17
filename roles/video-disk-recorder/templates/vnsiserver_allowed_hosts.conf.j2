@@ -1,0 +1,11 @@
+#
+# allowed_hosts.conf  This file describes a number of host addresses that
+#                     are allowed to connect to the streamdev server running
+#                     with the Video Disk Recorder (VDR) on this system.
+# Syntax:
+#
+# IP-Address[/Netmask]
+#
+{% for host in vdr_vnsi_allowed_hosts %}
+{{host}}
+{% endfor %}

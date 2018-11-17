@@ -2,53 +2,30 @@
 
  # install vdr
 
- # TODO: switch to 18.04, install https://launchpad.net/~seahawk1986-hotmail/+archive/ubuntu/vdr-2.3.9
-
- - name: add yavdr repositories
-   become: yes
-   apt_repository: repo="{{ item }}"
-   with_items:
-    - "ppa:yavdr/main"
-    - "ppa:yavdr/stable-vdr"
-
  - name: install vdr
    become: yes
    apt: name="{{ item }}" state=latest
    with_items:
     - vdr
-    - vdr-addon-acpiwakeup
-    - vdr-plugin-dummydevice
     - vdr-plugin-epgsearch
-    - vdr-addon-lifeguard
     - vdr-plugin-live
-    - vdr-plugin-markad
     - vdr-plugin-vnsiserver
 
- # configure service
+ # disable lirc
 
- - name: enable vdr service
+ - name: remove lirc package
    become: yes
-   lineinfile: dest="/etc/default/vdr" regexp="ENABLED" line="ENABLED=1"
+   apt: name=lirc state=absent
 
- - name: enable ACPI wakeup
+ - name: null device for lirc
    become: yes
-   lineinfile: dest="/etc/vdr/vdr-addon-acpiwakeup.conf" regexp="ACPI_ENABLED" line="ACPI_ENABLED=yes"
-
- - name: enable lifeguard for open samba file shares
-   become: yes
-   lineinfile: dest="/etc/vdr/lifeguard.conf" line="smb locks"
-
-  # ***********************
-  # BUGFIX: ACPI wakeup is working, but network card is not coming up after shutdown.
-  # ***********************
- - name: prevent vdr from shutting server down. This prevents a bug with network device being buggy.
-   become: yes
-   lineinfile: dest="/etc/vdr/conf.d/00-vdr.conf" line="--shutdown=/usr/lib/vdr/vdr-shutdown.wrapper" state="absent"
+   lineinfile: dest="/etc/vdr/conf.d/00-vdr.conf" regexp="\-\-lirc" state="absent"
 
  # configure logging
+
  - name: log vdr messages into own logfile - configure rsyslog
    become: yes
-   lineinfile: dest="/etc/vdr/conf.d/00-vdr.conf" line="--log=3.6"
+   lineinfile: dest="/etc/vdr/conf.d/00-vdr.conf" regexp="\-\-log" line="--log=3.6"
 
  - name: log vdr messages into own logfile - configure rsyslog
    become: yes
@@ -60,7 +37,17 @@
    become: yes
    copy: src="logrotate_vdr" dest="/etc/logrotate.d/vdr"
 
- # configure user settings
+ # configure vdr startup
+
+ - name: enable vdr service
+   become: yes
+   lineinfile: dest="/etc/default/vdr" regexp="ENABLED" line="ENABLED=1"
+
+ - name: run as root
+   become: yes
+   lineinfile: dest="/etc/vdr/conf.d/00-vdr.conf" regexp="\-\-user" line="--user=root"
+
+ # configure vdr settings
 
  - name: copy channel list
    become: yes
@@ -81,12 +68,15 @@
 
  - name: configure vdr
    become: yes
-   lineinfile: dest="/etc/vdr/setup.conf" regexp="{{ item.key }}" line="{{ item.key }} = {{ item.value }}" create=yes
+   lineinfile: dest="/etc/vdr/setup.conf" regexp="{{ item.key }}\ \=" line="{{ item.key }} = {{ item.value }}" create=yes
    with_items:
     - { key: "live.UserdefTimes", value: "20:15" }
     - { key: "live.UseStreamdev", value: "0"}
-    - { key: "live.AdminPasswordMD5", value: "4:{{ homeserver_vdr_live_password_hash }}" }
+    - { key: "live.AdminPasswordMD5", value: "4:{{ vdr_live_password_hash }}" }
+    - { key: "vnsiserver.Timeshift", value: "2"}
     - { key: "vnsiserver.TimeshiftBufferDir", value: "{{ vdr_timeshift_directory }}"}
+    - { key: "vnsiserver.TimeshiftBufferFileSize", value: "20"}
+    - { key: "vnsiserver.TimeshiftBufferSize", value: "20"}
     - { key: "UpdateChannels", value: "3" }
     - { key: "MarginStart", value: "1" }
     - { key: "MarginStop", value: "5" }
@@ -94,11 +84,20 @@
     - { key: "DefaultLifetime", value: "60" }
     - { key: "MaxVideoFileSize", value: "220000"}
 
+ - name: configure vnsi allowed hosts
+   become: yes
+   template: src="vnsiserver_allowed_hosts.conf.j2" dest="/etc/vdr/plugins/vnsiserver/allowed_hosts.conf"
+
+ # configure directories
+
  - name: ensure timeshift directory
    become: yes
    file: path="{{ vdr_timeshift_directory }}" state="directory" owner="vdr" group="vdr"
 
- - name: export recordings directory read only
+ - name: ensure recordings directory
    become: yes
-   lineinfile: dest=/etc/exports line="/srv/vdr/video {{ homeserver_network_mask }}(ro,async,all_squash,insecure)" regexp=/srv/vdr/video
-   notify: restart nfs
+   file: path="{{ vdr_recordings_directory }}" state="directory" owner="vdr" group="vdr"
+
+ - name: use recordings directory
+   become: yes
+   lineinfile: dest="/etc/vdr/conf.d/00-vdr.conf" regexp="\-\-video" line="--video={{ vdr_recordings_directory }}"

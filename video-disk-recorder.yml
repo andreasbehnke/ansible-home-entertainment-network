@@ -23,6 +23,7 @@
      changed_when: False
 
   roles:
+    - remote-access
     #- digital-devices-dvb
     - video-disk-recorder
 
