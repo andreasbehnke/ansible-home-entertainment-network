@@ -1,7 +1,6 @@
 ---
 
   kodi_sources: "{{ kodi_base }}/userdata/sources.xml"
-  kodi_wakeonlan: "{{ kodi_base }}/userdata/wakeonlan.xml"
   kodi_database: "{{ kodi_base }}/userdata/Database"
   kodi_addon_data: "{{ kodi_base }}/userdata/addon_data"
   kodi_skin_estuary: "{{ kodi_addon_data }}/skin.estuary"

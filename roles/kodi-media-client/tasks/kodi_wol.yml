@@ -1,4 +1,0 @@
----
- 
-   - name: write wol configuration
-     template: src=wakeonlan.xml.j2 dest={{ kodi_wakeonlan }}

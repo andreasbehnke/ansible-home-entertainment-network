@@ -1,6 +1,5 @@
 ---
 homeserver_host: "{{ hostvars['homeserver']['ansible_host'] }}"
-homeserver_mac: "{{ hostvars['homeserver']['mac_addr'] }}"
 homeserver_network_mask: "{{ hostvars['homeserver']['network_mask'] }}"
 kodi_base: "{{ ansible_env.HOME }}/.kodi"
 kodi_gui_settings: "{{ kodi_base }}/userdata/guisettings.xml"
