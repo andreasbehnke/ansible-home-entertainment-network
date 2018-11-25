@@ -29,3 +29,5 @@
     - "/settings/powermanagement/*/@default"
     - "/settings/pvrmanager/*/@default"
     - "/settings/pvrmenu/*/@default"
+
+  kodi_vdr_port: "34890"
