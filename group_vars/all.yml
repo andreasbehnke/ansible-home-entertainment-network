@@ -1,13 +1,3 @@
 ---
-homeserver_host: "{{ hostvars['homeserver']['ansible_host'] }}"
-homeserver_network_mask: "{{ hostvars['homeserver']['network_mask'] }}"
 kodi_base: "{{ ansible_env.HOME }}/.kodi"
 kodi_gui_settings: "{{ kodi_base }}/userdata/guisettings.xml"
-#public_file_shares:
-#  - { name: "picture", path: "/srv/picture", mount: "/mnt/picture", kodi_source: "pictures" }
-#  - { name: "music", path: "/srv/music", mount: "/mnt/music", kodi_source: "music" }
-#  - { name: "video", path: "/srv/video", mount: "/mnt/video", kodi_source: "video" }
-#private_file_shares:
-#  - { name: "documents", path: "/srv/documents" }
-#public_readonly_file_shares:
-#  - { name: "pvr", path: "/srv/vdr/video" }

@@ -2,15 +2,15 @@
     <programs>
         <default pathversion="1"></default>
     </programs>
-{% for share in public_file_shares %}
-    <{{ share.kodi_source }}>
+{% for share in kodi_sources %}
+    <{{ share.media_type }}>
       <default pathversion="1"></default>
       <source>
-          <name>{{ share.name }}@{{ homeserver_host }}</name>
+          <name>{{ share.name }}</name>
           <path pathversion="1">{{ share.mount }}</path>
           <allowsharing>false</allowsharing>
       </source>
-    </{{ share.kodi_source }}>
+    </{{ share.media_type }}>
 {% endfor %}
     <files>
         <default pathversion="1"></default>
