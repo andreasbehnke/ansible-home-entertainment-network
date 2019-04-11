@@ -10,6 +10,7 @@
     - vdr-plugin-epgsearch
     - vdr-plugin-live
     - vdr-plugin-vnsiserver
+    - vdr-plugin-streamdev-server
 
  # disable lirc
 
@@ -93,7 +94,11 @@
 
  - name: configure vnsi allowed hosts
    become: yes
-   template: src="vnsiserver_allowed_hosts.conf.j2" dest="/etc/vdr/plugins/vnsiserver/allowed_hosts.conf"
+   template: src="allowed_hosts.conf.j2" dest="/etc/vdr/plugins/vnsiserver/allowed_hosts.conf"
+
+ - name: configure streamdev server allowed hosts
+   become: yes
+   template: src="allowed_hosts.conf.j2" dest="/etc/vdr/plugins/streamdevhosts.conf"
 
  # configure directories
 
