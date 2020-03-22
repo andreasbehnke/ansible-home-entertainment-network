@@ -1,6 +1,6 @@
 ---
 
-- hosts: video-disk-recorder
+- hosts: video_disk_recorder
 
   pre_tasks:
    - name: prefere ipv4 over ipv6 to fix DNS problem with secure.ubuntu

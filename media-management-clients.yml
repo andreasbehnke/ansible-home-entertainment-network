@@ -1,6 +1,6 @@
 ---
 
-- hosts: media-management-clients
+- hosts: media_management_clients
 
   roles:
     - remote-access

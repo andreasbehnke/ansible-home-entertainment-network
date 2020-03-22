@@ -1,6 +1,6 @@
 ---
 
-- hosts: media-server
+- hosts: media_server
 
   pre_tasks:
    - name: update apt cache

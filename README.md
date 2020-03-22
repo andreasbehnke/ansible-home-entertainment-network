@@ -9,13 +9,13 @@ Purpose of this ansible project is to provide playbooks for members of a home en
    - Live plugin for VDR to manage video recorder with webfrontend
    - Samba for providing read/write access to media shares
 
- * media-clients
+ * media_clients
    A media center software to play back media provided by homeserver. These clients are either OSMC based raspberry pi devices or Ubuntu based desktop clients.
    The following software will be installed:
    - Kodi with VNSI PVR plugin for streaming live TV from homeserver
    - Configured to access media shares of homeserver
 
- * media-management-clients
+ * media_management_clients
    A client which is able to manage photos and videos on homeserver.
    The following software will be installed:
    - rapid photo downloader for uploading private media like photos and videos from smartphones to homeserver

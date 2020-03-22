@@ -1,6 +1,6 @@
 ---
 
-- hosts: media-clients
+- hosts: media_clients
 
   environment:
 
