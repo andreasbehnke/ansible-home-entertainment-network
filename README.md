@@ -1,3 +1,5 @@
+# This repository is outdated and only available for documentation purposes. The only maintained ansible repsoitories are these prefixed with ansible_role_XYZ
+
 # Home Entertainment Network
 
 Purpose of this ansible project is to provide playbooks for members of a home entertainment network. The network consist of the following members:
